@@ -1,0 +1,46 @@
+body {
+	background: #eee;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 100vh;
+	margin: 0;
+}
+
+.iphone {
+	width: 390px;
+	height: 770px;
+	background-color: white;
+	border-radius: 40px;
+	box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
+	overflow: hidden;
+	padding: 20px;
+}
+
+.iphone h1 {
+	font-size: 24px;
+	text-align: center;
+	margin-top: 20px;
+}
+
+.iphone p {
+	margin-bottom: -3px;
+	font-size: 20px;
+}
+
+.iphone input[type="range"] {
+	width: 100%;
+	margin-top: 10px;
+}
+
+.start-btn {
+	margin-top: 40px;
+	width: 100%;
+	padding: 15px;
+	border: none;
+	background: rgb(212, 102, 102);
+	color: white;
+	font-size: 16px;
+	border-radius: 12px;
+	cursor: pointer;
+}
