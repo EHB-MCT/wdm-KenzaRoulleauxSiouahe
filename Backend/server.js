@@ -2,10 +2,12 @@ const express = require("express");
 const cors = require("cors");
 
 const { MongoClient, ServerApiVersion } = require("mongodb");
-const {username, password, cluster, dbName} = require("./config")
+const { username, password, cluster, dbName } = require("./config");
 
-const uri =`mongodb+srv://${username}:${password}@${cluster}/${dbName}?retryWrites=true&w=majority&appName=${dbName}` ;
+//Credentials
+const uri = `mongodb+srv://${username}:${password}@${cluster}/${dbName}?retryWrites=true&w=majority&appName=${dbName}`;
 
+//Create new MongoDB client
 const client = new MongoClient(uri, {
 	serverApi: {
 		version: ServerApiVersion.v1,
@@ -14,30 +16,49 @@ const client = new MongoClient(uri, {
 	},
 });
 
+let usersCollection;
+
+//Connection to DB
 async function run() {
 	try {
 		await client.connect();
-		await client.db("admin").command({ ping: 1 });
-		console.log("Pinged your deployment. You successfully connected to MongoDB!");
-	} finally {
-		await client.close();
+		console.log("Connected to MongoDB!");
+
+		const db = client.db(dbName);
+		usersCollection = db.collection("users");
+	} catch (err) {
+		console.error("MongoDB connection error:", err);
 	}
 }
-run().catch(console.dir);
+run();
 
 const app = express();
 
 app.use(cors());
 app.use(express.json());
 
+//Test route
 app.get("/", (req, res) => {
 	res.send("Backend is working");
 });
 
-app.post("/register", (req, res) => {
+//Register route
+app.post("/register", async (req, res) => {
 	const { username, password } = req.body;
 	console.log("Received:", username, password);
-	res.json({ message: "Register request received!" });
+	if (!usersCollection) {
+		return res.status(500).json({ message: "Database not connected yet" });
+	}
+	const existingUser = await usersCollection.findOne({ username });
+
+	if (existingUser) {
+		return res
+			.status(400)
+			.json({ message: "Username already exists. Try another." });
+	}
+	await usersCollection.insertOne({ username, password });
+
+	res.json({ message: "User registered successfully!" });
 });
 
 const PORT = 5000;
