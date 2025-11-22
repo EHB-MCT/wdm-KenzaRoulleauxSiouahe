@@ -2,8 +2,9 @@ const express = require("express");
 const cors = require("cors");
 
 const { MongoClient, ServerApiVersion } = require("mongodb");
+const {username, password, cluster, dbName} = require("./config")
 
-const uri = "mongodb+srv://kenzaroulleauxsiouahe_db_user:Mc5mMTyPm2XtKcFF@heartappcluster.skpvnfq.mongodb.net/?appName=HeartAppcluster";
+const uri =`mongodb+srv://${username}:${password}@${cluster}/${dbName}?retryWrites=true&w=majority&appName=${dbName}` ;
 
 const client = new MongoClient(uri, {
 	serverApi: {
