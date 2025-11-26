@@ -10,12 +10,13 @@ registerBtn.addEventListener("click", async () =>{
             headers: {"Content-Type": "application/json"},
             body: JSON.stringify({username, password})
         });
+        const data = await res.json();
         if (!res.ok){
-            alert("Failed to connect to server!")
+            alert(data.message)
             return;
         }
 
-        const data = await res.json();
+        
         alert(data.message);
     }
     catch (error) {
