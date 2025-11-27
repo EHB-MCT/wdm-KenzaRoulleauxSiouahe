@@ -17,7 +17,7 @@ loginBtn.addEventListener("click", async () => {
 		}
 
 		alert(data.message);
-        window.location.href = "main.html";
+		window.location.href = "movie.html";
 	} catch (error) {
 		console.error("Error:", error);
 		alert("Could not reach backend");
