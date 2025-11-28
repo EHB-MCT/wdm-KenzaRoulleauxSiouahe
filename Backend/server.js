@@ -17,6 +17,7 @@ const client = new MongoClient(uri, {
 });
 
 let usersCollection;
+let moviesCollection
 
 //Connection to DB
 async function run() {
@@ -26,6 +27,7 @@ async function run() {
 
 		const db = client.db(dbName);
 		usersCollection = db.collection("users");
+		moviesCollection = db.collection("movies")
 	} catch (err) {
 		console.error("MongoDB connection error:", err);
 	}
@@ -83,6 +85,18 @@ app.post("/login", async (req, res) => {
 
 	res.json({ message: "Login successful!" });
 });
+
+app.get("/movies", async (req, res) =>{
+	const searchQuery = req.query.q;
+
+	if (!moviesCollection){
+		return res.status(500).json({message: "Movies DB not conected"});
+	}
+	const movies = await moviesCollection
+	.find({title: {$regex: searchQuery, $options: "i"}})
+	.toArray()
+	res.json(movies);
+})
 const PORT = 5000;
 
 app.listen(PORT, () => {
