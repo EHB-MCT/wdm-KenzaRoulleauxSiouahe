@@ -104,7 +104,7 @@ app.get("/movies", async (req, res) => {
 		} else {
 			movies = await moviesCollection
 				.find({
-					Title: { $regex: searchQuery, $options: "i" },
+					Title: { $regex: "^" + searchQuery, $options: "i" },
 				})
 				.toArray();
 		}
