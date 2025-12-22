@@ -46,6 +46,7 @@ searchInput.addEventListener("input", async () => {
 		item.innerHTML = `
     <img src="http://localhost:5000${movie.Poster}" alt="${movie.Title}" />
     <h3>${movie.Title}</h3>
+	<h3>${movie.Duration}<h3>
   `;
 
 		resultsDiv.appendChild(item);
