@@ -19,7 +19,7 @@ searchInput.addEventListener("input", async () => {
 		item.classList.add("movie-card");
 
 		item.innerHTML = `
-    <img src="${movie.Poster}" alt="${movie.Title}" />
+    <img src="http://localhost:5000${movie.Poster}" alt="${movie.Title}" />
     <h3>${movie.Title}</h3>
   `;
 
