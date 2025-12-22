@@ -55,6 +55,8 @@ searchInput.addEventListener("input", async () => {
 			<p>Year: ${movie.Year}</p>
 			<p>Duration: ${movie.Duration || "N/A"}</p>
 			<p>Country: ${movie.Country || "N/A"}</p>
+			<p>Subgenre: ${movie.Subgenre || "N/A"}</p>
+			<p>Rating: ${movie.Rating || "N/A"}</p>
 		</div>
 	`;
 
