@@ -24,9 +24,14 @@ searchInput.addEventListener("input", async () => {
 	if (query === "") {
 		searchHeader.style.display = "block";
 		moviesContainer.style.display = "flex";
+
+		resultsDiv.style.display = "none";
+		resultsDiv.innerHTML = "";
 	} else {
 		searchHeader.style.display = "none";
 		moviesContainer.style.display = "none";
+
+		resultsDiv.style.display = "block";
 	}
 
 	const response = await fetch("http://localhost:5000/movies?q=" + encodeURIComponent(query));
@@ -41,7 +46,7 @@ searchInput.addEventListener("input", async () => {
 
 	movies.forEach((movie) => {
 		const item = document.createElement("div");
-		item.classList.add("movie-card"); 
+		item.classList.add("movie-card");
 
 		item.innerHTML = `
 		<img src="http://localhost:5000${movie.Poster}" alt="${movie.Title}" />
