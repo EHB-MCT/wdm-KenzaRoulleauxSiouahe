@@ -15,7 +15,7 @@
 	overflow-x: auto;
 	gap: 10px;
 	padding-bottom: 10px;
-	scroll-behavior: smooth; /* smooth horizontal scroll */
+	scroll-behavior: smooth;
 }
 
 #moviesContainer::-webkit-scrollbar {
@@ -36,8 +36,8 @@
 
 .movie-card-default img {
 	width: 100%;
-	height: 140px; /* fixed height for uniform posters */
-	object-fit: cover; /* crop to fit without distortion */
+	height: 140px;
+	object-fit: cover;
 	border-radius: 6px;
 }
 
@@ -48,6 +48,7 @@
 	word-break: break-word;
 }
 
+/* Result movie card */
 #results {
 	margin-top: 20px;
 }
@@ -62,9 +63,9 @@
 }
 
 .movie-card img {
-	width: 25%; 
-	height: 25%; 
-	object-fit: cover; 
+	width: 25%;
+	height: 25%;
+	object-fit: cover;
 	border-radius: 5px;
 }
 
@@ -76,11 +77,11 @@
 
 .movie-info h3 {
 	margin: 0 0 3px 0;
-	font-size: 14px;
+	font-size: 15px;
 }
 
 .movie-info p {
 	margin: 1px 0;
-	font-size: 12px;
+	font-size: 15px;
 	color: #555;
 }
