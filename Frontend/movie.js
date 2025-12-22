@@ -1,22 +1,28 @@
-const searchBtn = document.getElementById("searchBtn");
+const searchInput = document.getElementById("searchInput");
+const resultsDiv = document.getElementById("results");
 
-searchBtn.addEventListener("click", async () => {
-	const query = document.getElementById("searchInput").value;
+searchInput.addEventListener("input", async () => {
+	const query = searchInput.value.trim();
 
-	const response = await fetch("http://localhost:5000/movies?q=" + query);
+	const response = await fetch("http://localhost:5000/movies?q=" + encodeURIComponent(query));
 	const movies = await response.json();
 
-	const resultsDiv = document.getElementById("results");
 	resultsDiv.innerHTML = "";
 
-	if (movies.length == 0) {
+	if (movies.length === 0) {
 		resultsDiv.innerHTML = "<p>No movies found.</p>";
 		return;
 	}
 
 	movies.forEach((movie) => {
 		const item = document.createElement("div");
-		item.innerHTML = `<strong>${movies.title}</strong> (${movie.year})`;
+		item.classList.add("movie-card");
+
+		item.innerHTML = `
+    <img src="${movie.Poster}" alt="${movie.Title}" />
+    <h3>${movie.Title}</h3>
+  `;
+
 		resultsDiv.appendChild(item);
 	});
 });
