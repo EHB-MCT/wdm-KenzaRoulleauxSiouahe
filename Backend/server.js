@@ -39,6 +39,8 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+app.use("/posters", express.static("public/posters"));
+
 //Test route
 app.get("/", (req, res) => {
 	res.send("Backend is working");
