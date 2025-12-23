@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Profile</title>
+		<link rel="stylesheet" href="style.css" />
+        <link rel="stylesheet" href="profile.css"/>
+	</head>
+	<body>
+		<div class="iphone">
+			<div class="profile-header">
+				<img src="images/profile.jpg" alt="Profile picture" class="profile-pic" />
+				<h2 class="username">...</h2>
+			</div>
+
+			<div class="profile-tabs">
+				<button class="tab-btn active" data-tab="watched">Watched</button>
+				<button class="tab-btn" data-tab="towatch">To Watch</button>
+			</div>
+
+			<div class="tab-content">
+				<div id="watched" class="movies-section active">
+				</div>
+
+				<div id="towatch" class="movies-section">
+				</div>
+			</div>
+
+			<nav class="bottom-nav">
+				<a href="friends.html" class="nav-item">
+					<i class="fa-solid fa-users"></i>
+					<span>Friends</span>
+				</a>
+
+				<a href="movie.html" class="nav-item nav-search active">
+					<i class="fa-solid fa-magnifying-glass"></i>
+				</a>
+
+				<a href="profile.html" class="nav-item">
+					<i class="fa-solid fa-user"></i>
+					<span>Profile</span>
+				</a>
+			</nav>
+		</div>
+        <script src="profile.js"></script>
+	</body>
+</html>
