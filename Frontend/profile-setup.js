@@ -1,6 +1,11 @@
 const saveProfileBtn = document.getElementById("saveProfileBtn");
 const urlParams = new URLSearchParams(window.location.search);
 const username = urlParams.get("username");
+const loggedUser = localStorage.getItem("loggedUser");
+
+if (!loggedUser){
+    window.location.href = "login.html";
+}
 
 saveProfileBtn.addEventListener("click", async () => {
 	const displayName = document.getElementById("displayName").value;
