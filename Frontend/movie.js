@@ -51,7 +51,8 @@ searchInput.addEventListener("input", async () => {
 		item.innerHTML = `
 		<img src="http://localhost:5000${movie.Poster}" alt="${movie.Title}" />
 		<div class="movie-info">
-			<h3>${movie.Title}</h3>
+			<h3>${movie.Title}
+			<span class= "heart" data-id= "${movie._id}">♡ </span> </h3>
 			<p>Year: ${movie.Year}</p>
 			<p>Duration: ${movie.Duration || "N/A"}</p>
 			<p>Country: ${movie.Country || "N/A"}</p>
