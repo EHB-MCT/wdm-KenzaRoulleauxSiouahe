@@ -23,8 +23,8 @@ registerBtn.addEventListener("click", async () => {
 			return;
 		}
 
-		alert(data.message);
-		window.location.href = `profile-setup.html?username=${encodeURIComponent(username)}`;
+		localStorage.setItem("loggedUser", username);
+		window.location.href = "profile-setup.html";
 	} catch (error) {
 		console.error("Error:", error);
 		alert("Could not reach backend");
