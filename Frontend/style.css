@@ -15,13 +15,18 @@ body {
 	box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
 	overflow: hidden;
 	padding: 20px;
+	display: flex;
+	flex-direction: column;
+	position: relative;
+	box-sizing: border-box;
+	padding-bottom: 85px;
 }
 
 .iphone h1 {
 	font-size: 24px;
 	text-align: center;
 	margin-top: 20px;
-	font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+	font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande", "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
 }
 
 .iphone p {
@@ -34,7 +39,8 @@ body {
 	margin-top: 10px;
 }
 
-.start-btn, .casual-btn {
+.start-btn,
+.casual-btn {
 	margin-top: 40px;
 	width: 100%;
 	padding: 15px;
@@ -49,4 +55,63 @@ body {
 .casual-btn {
 	width: 40%;
 	padding: 10px;
+}
+
+.bottom-nav {
+	position: absolute;
+	bottom: 0;
+	left: 0;
+	width: 100%;
+	height: 70px;
+	background-color: #fff;
+	border-top: 1px solid #eaeaea;
+
+	display: flex;
+	justify-content: space-around;
+	align-items: center;
+
+	border-bottom-left-radius: 40px;
+	border-bottom-right-radius: 40px;
+}
+
+.nav-item {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+
+	color: #999;
+	text-decoration: none;
+	font-size: 11px;
+}
+
+.nav-item i {
+	font-size: 20px;
+	margin-bottom: 3px;
+}
+
+.nav-item.active {
+	color: #000;
+}
+
+.nav-search {
+	background-color: #000;
+	color: #fff;
+	width: 56px;
+	height: 56px;
+	border-radius: 50%;
+
+	display: flex;
+	justify-content: center;
+	align-items: center;
+
+	transform: translateY(-18px);
+	box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
+}
+
+.nav-search i {
+	font-size: 22px;
+}
+
+.nav-search span {
+	display: none;
 }
