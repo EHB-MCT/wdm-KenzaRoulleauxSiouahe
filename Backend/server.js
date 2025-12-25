@@ -48,19 +48,22 @@ app.get("/", (req, res) => {
 
 //Register route
 app.post("/register", async (req, res) => {
-	const { username, password } = req.body;
-	console.log("Received:", username, password);
+	const { email, password } = req.body;
+	console.log("Received:", email, password);
 	if (!usersCollection) {
 		return res.status(500).json({ message: "Database not connected yet" });
 	}
-	const existingUser = await usersCollection.findOne({ username });
+	if (!email.includes("@")) {
+		return res.status(400).json({ message: "Invalid email" });
+	}
+	const existingUser = await usersCollection.findOne({ email });
 
 	if (existingUser) {
-		return res.status(400).json({ message: "Username already exists. Try another." });
+		return res.status(400).json({ message: "Email already exists. Try another." });
 	}
 
 	await usersCollection.insertOne({
-		username,
+		email,
 		password,
 
 		// Profile fields
@@ -79,14 +82,14 @@ app.post("/register", async (req, res) => {
 
 //Profile-setup route
 app.post("/profile-setup", async (req, res) => {
-	const { username, displayName, fearLevel, favoriteGenres } = req.body;
+	const { email, displayName, fearLevel, favoriteGenres } = req.body;
 
 	if (!usersCollection) {
 		return res.status(500).json({ message: "Database not connected" });
 	}
 
 	const result = await usersCollection.updateOne(
-		{ username },
+		{ email },
 		{
 			$set: {
 				displayName,
@@ -104,23 +107,23 @@ app.post("/profile-setup", async (req, res) => {
 });
 //Login route
 app.post("/login", async (req, res) => {
-	const { username, password } = req.body;
+	const { email, password } = req.body;
 	if (!usersCollection) {
 		return res.status(500).json({ message: "Database not connected yet" });
 	}
-	if (!username || !password) {
+	if (!email || !password) {
 		return res.status(400).json({ message: "Please provide username and password." });
 	}
 
 	//Find user in DB
-	const user = await usersCollection.findOne({ username });
+	const user = await usersCollection.findOne({ email });
 
-	if (!user) {
+	if (!email) {
 		return res.status(400).json({ message: "User not found" });
 	}
 
 	//Check password
-	if (user.password !== password) {
+	if (email.password !== password) {
 		return res.status(400).json({ message: "Incorrect password" });
 	}
 
