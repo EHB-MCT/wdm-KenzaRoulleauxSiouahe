@@ -94,18 +94,13 @@ body {
 }
 
 .nav-search {
-	background-color: #000;
 	color: #fff;
 	width: 56px;
 	height: 56px;
 	border-radius: 50%;
-
 	display: flex;
 	justify-content: center;
 	align-items: center;
-
-	transform: translateY(-18px);
-	box-shadow: 0 8px 20px rgba(0, 0, 0, 0.25);
 }
 
 .nav-search i {
