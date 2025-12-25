@@ -158,8 +158,23 @@ app.get("/movies", async (req, res) => {
 	}
 });
 
+//get profile info
+app.get("/profile", async (req, res) => {
+	const { email } = req.query;
+
+	if (!usersCollection) {
+		return res.status(500).json({ message: "Database not connected" });
+	}
+	const user = await usersCollection.findOne({ email }, { projection: { password: 0 } });
+	if (!user) {
+		return res.status(404).json({ message: "User not found" });
+	}
+	res.json(user);
+});
+
 const PORT = 5000;
 
 app.listen(PORT, () => {
 	console.log(`Server running on port ${PORT}`);
 });
+ 
