@@ -1,19 +1,22 @@
 const registerBtn = document.getElementById("registerBtn");
 
 registerBtn.addEventListener("click", async () => {
-	const username = document.getElementById("username").value;
+	const email = document.getElementById("email").value;
 	const password = document.getElementById("password").value;
 
-	if (!username || !password) {
+	if (!email || !password) {
 		alert("Please fill in all fields");
 		return;
 	}
-
+	if (!email.includes("@")) {
+		alert("Please enter a valid email address");
+		return;
+	}
 	try {
 		const res = await fetch("http://localhost:5000/register", {
 			method: "POST",
 			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify({ username, password }),
+			body: JSON.stringify({ email, password }),
 		});
 
 		const data = await res.json();
@@ -23,7 +26,7 @@ registerBtn.addEventListener("click", async () => {
 			return;
 		}
 
-		localStorage.setItem("loggedUser", username);
+		localStorage.setItem("loggedUser", email);
 		window.location.href = "profile-setup.html";
 	} catch (error) {
 		console.error("Error:", error);

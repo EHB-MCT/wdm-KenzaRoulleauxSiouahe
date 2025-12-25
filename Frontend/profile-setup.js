@@ -1,10 +1,8 @@
 const saveProfileBtn = document.getElementById("saveProfileBtn");
-const urlParams = new URLSearchParams(window.location.search);
-const username = urlParams.get("username");
 const loggedUser = localStorage.getItem("loggedUser");
 
-if (!loggedUser){
-    window.location.href = "login.html";
+if (!loggedUser) {
+	window.location.href = "login.html";
 }
 
 saveProfileBtn.addEventListener("click", async () => {
@@ -23,7 +21,7 @@ saveProfileBtn.addEventListener("click", async () => {
 			method: "POST",
 			headers: { "Content-Type": "application/json" },
 			body: JSON.stringify({
-				username,
+				email: loggedUser,
 				displayName,
 				fearLevel,
 				favoriteGenres: selectedGenres,

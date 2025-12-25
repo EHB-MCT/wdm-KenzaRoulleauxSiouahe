@@ -6,7 +6,8 @@
 }
 
 .iphone input#username,
-.iphone input#password {
+.iphone input#password,
+.iphone input#email {
 	width: 100%;
 	padding: 6px 10px;
 	font-size: 14px;
@@ -20,7 +21,8 @@
 }
 
 .iphone input#username:focus,
-.iphone input#password:focus {
+.iphone input#password:focus,
+.iphone input#email:focus {
 	border-color: #ff4b4b;
 	box-shadow: 0 0 6px rgba(255, 75, 75, 0.5);
 }
