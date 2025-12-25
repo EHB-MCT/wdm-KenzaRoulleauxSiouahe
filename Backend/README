@@ -30,6 +30,10 @@ used to help with he search query in MongoDB
 
 used for the error status codes
 
+- Islam Rimon, N. (2025, March 1). A Complete Guide to Implementing a File Upload Function in Node.js with Express and Multer NPM. Medium. https://medium.com/@nurulislamrimon/a-complete-guide-to-implementing-a-file-upload-function-in-node-js-with-express-and-multer-npm-0f6e2e2d98cd
+
+used for 'Multer' for image upload for the profile pictures
+
 - Node.js — An introduction to the npm package manager. (n.d.). https://nodejs.org/en/learn/getting-started/an-introduction-to-the-npm-package-manager
 
 node starter

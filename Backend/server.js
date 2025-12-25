@@ -4,6 +4,9 @@ const cors = require("cors");
 const { MongoClient, ServerApiVersion } = require("mongodb");
 const { username, password, cluster, dbName } = require("./config");
 
+const multer = require("multer");
+const path = require("path");
+
 //Credentials
 const uri = `mongodb+srv://${username}:${password}@${cluster}/${dbName}?retryWrites=true&w=majority&appName=${dbName}`;
 
@@ -15,6 +18,13 @@ const client = new MongoClient(uri, {
 		deprecationErrors: true,
 	},
 });
+
+const storage = multer.diskStorage({
+	destination: (req, file, cb) => cb(null, path.join(__dirname, "public/avatars")),
+	filename: (req, file, cb) => cb(null, `${Date.now()}-${file.originalname}`),
+});
+
+const public = multer({ storage });
 
 let usersCollection;
 let moviesCollection;
@@ -39,7 +49,9 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.use("/posters", express.static("public/posters"));
+app.use("/posters", express.static(path.join(__dirname, "public/posters")));
+app.use("/avatars", express.static(path.join(__dirname, "public/avatars")));
+app.use(express.static(path.join(__dirname, "public")));
 
 //Test route
 app.get("/", (req, res) => {
@@ -62,46 +74,40 @@ app.post("/register", async (req, res) => {
 		return res.status(400).json({ message: "Email already exists. Try another." });
 	}
 
-	await usersCollection.insertOne({
-		email,
-		password,
-
-		// Profile fields
-		displayName: "",
-		fearLevel: null,
-		favoriteGenres: [],
-
-		watchlist: [],
-		watched: [],
-
-		createdAt: new Date(),
-	});
-
-	res.json({ message: "User registered successfully!" });
-});
-
-//Profile-setup route
-app.post("/profile-setup", async (req, res) => {
-	const { email, displayName, fearLevel, favoriteGenres } = req.body;
-
-	if (!usersCollection) {
-		return res.status(500).json({ message: "Database not connected" });
-	}
-
-	const result = await usersCollection.updateOne(
+	await usersCollection.updateOne(
 		{ email },
 		{
 			$set: {
 				displayName,
 				fearLevel,
 				favoriteGenres,
+				avatar: avatarPath,
 			},
 		}
 	);
+	res.json({ message: "User registered successfully!" });
+});
 
-	if (result.matchedCount === 0) {
-		return res.status(404).json({ message: "User not found" });
+//Profile-setup route
+app.post("/profile-setup", public.single("avatar"), async (req, res) => {
+	const { email, displayName, fearLevel, favoriteGenres } = req.body;
+	const avatarPath = req.file ? `/avatars/${req.file.filename}` : null;
+
+	if (!usersCollection) {
+		return res.status(500).json({ message: "Database not connected" });
 	}
+
+	await usersCollection.updateOne(
+		{ email },
+		{
+			$set: {
+				displayName,
+				fearLevel,
+				favoriteGenres: JSON.parse(favoriteGenres),
+				avatar: avatarPath,
+			},
+		}
+	);
 
 	res.json({ message: "Profile setup completed" });
 });
@@ -111,16 +117,12 @@ app.post("/login", async (req, res) => {
 	if (!usersCollection) {
 		return res.status(500).json({ message: "Database not connected yet" });
 	}
-	if (!email || !password) {
+	if (!user || !password) {
 		return res.status(400).json({ message: "Please provide username and password." });
 	}
 
 	//Find user in DB
 	const user = await usersCollection.findOne({ email });
-
-	if (!email) {
-		return res.status(400).json({ message: "User not found" });
-	}
 
 	//Check password
 	if (email.password !== password) {
@@ -177,4 +179,3 @@ const PORT = 5000;
 app.listen(PORT, () => {
 	console.log(`Server running on port ${PORT}`);
 });
- 

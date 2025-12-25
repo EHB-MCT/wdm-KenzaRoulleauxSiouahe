@@ -8,6 +8,7 @@ if (!loggedUser) {
 saveProfileBtn.addEventListener("click", async () => {
 	const displayName = document.getElementById("displayName").value;
 	const fearLevel = document.getElementById("fearLevel").value;
+	const avatarFile = document.getElementById("avatar").files[0];
 
 	const selectedGenres = Array.from(document.querySelectorAll(".genres input:checked")).map((el) => el.value);
 
@@ -16,16 +17,18 @@ saveProfileBtn.addEventListener("click", async () => {
 		return;
 	}
 
+	const formData = new FormData();
+	formData.append("email", loggedUser);
+	formData.append("displayName", displayName);
+	formData.append("fearLevel", fearLevel);
+	formData.append("favoriteGenres", JSON.stringify(selectedGenres));
+	formData.append("avatar", avatarFile);
+
+
 	try {
 		const res = await fetch("http://localhost:5000/profile-setup", {
 			method: "POST",
-			headers: { "Content-Type": "application/json" },
-			body: JSON.stringify({
-				email: loggedUser,
-				displayName,
-				fearLevel,
-				favoriteGenres: selectedGenres,
-			}),
+			body: formData,
 		});
 
 		const data = await res.json();
@@ -34,7 +37,7 @@ saveProfileBtn.addEventListener("click", async () => {
 			return;
 		}
 
-		window.location.href = "movie.html";
+		window.location.href = "profile.html";
 	} catch (err) {
 		console.error(err);
 		alert("Could not save profile");
