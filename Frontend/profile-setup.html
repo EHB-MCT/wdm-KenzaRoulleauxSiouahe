@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Setup Profile</title>
+		<link rel="stylesheet" href="style.css" />
+		<link rel="stylesheet" href="profile-setup.css" />
+	</head>
+	<body>
+		<div class="iphone">
+			<h1>Create your profile</h1>
+
+			<input type="text" id="displayName" placeholder="Display name" />
+
+			<label class="file-label">
+				Profile picture
+				<input type="file" id="avatar" accept="image/*" />
+			</label>
+
+			<h2>What Horror subgenre is for you?</h2>
+
+			<div class="genres">
+				<label><input type="checkbox" value="Slasher" /> Slasher</label>
+				<label><input type="checkbox" value="Psychological" /> Psychological</label>
+				<label><input type="checkbox" value="Supernatural" /> Supernatural</label>
+				<label><input type="checkbox" value="Found Footage" /> Found Footage</label>
+				<label><input type="checkbox" value="Body Horror" /> Body Horror</label>
+				<label><input type="checkbox" value="Gore" /> Gore</label>
+				<label><input type="checkbox" value="Monster" /> Monster</label>
+				<label><input type="checkbox" value="Zombie" /> Zombies</label>
+				<label><input type="checkbox" value="Dystopian" /> Dystopian</label>
+                <label><input type="checkbox" value="All" /> All of the above</label>
+			</div>
+
+			<h2>Fear tolerance</h2>
+			<p class="slider-label">From “I scream” to “I sleep during it”</p>
+			<input type="range" id="fearLevel" min="1" max="5" value="3" />
+
+			<button id="saveProfileBtn" class="small-btn">Finish setup</button>
+		</div>
+
+		<script src="profile-setup.js"></script>
+	</body>
+</html>
