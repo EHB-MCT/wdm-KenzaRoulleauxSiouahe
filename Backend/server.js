@@ -51,7 +51,7 @@ app.use(express.json());
 
 app.use("/posters", express.static(path.join(__dirname, "public/posters")));
 app.use("/avatars", express.static(path.join(__dirname, "public/avatars")));
-app.use(express.static(path.join(__dirname, "public")));
+app.use("/public", express.static(path.join(__dirname, "public")));
 
 //Test route
 app.get("/", (req, res) => {

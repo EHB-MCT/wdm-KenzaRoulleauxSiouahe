@@ -29,7 +29,7 @@ async function loadProfile() {
 		if (user.avatar) {
 			document.querySelector(".profile-pic").src = `http://localhost:5000${user.avatar}`;
 		} else {
-			document.querySelector(".profile-pic").src = "default-avatar.jpg";
+			document.querySelector(".profile-pic").src = "http://localhost:5000/avatars/default-avatar.jpg";
 		}
 	} catch (error) {
 		console.error("Profile load error:", error);
