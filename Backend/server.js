@@ -7,6 +7,8 @@ const { username, password, cluster, dbName } = require("./config");
 const multer = require("multer");
 const path = require("path");
 
+const { randomUUID } = require("crypto");
+
 //Credentials
 const uri = `mongodb+srv://${username}:${password}@${cluster}/${dbName}?retryWrites=true&w=majority&appName=${dbName}`;
 
@@ -73,19 +75,24 @@ app.post("/register", async (req, res) => {
 	if (existingUser) {
 		return res.status(400).json({ message: "Email already exists. Try another." });
 	}
+	const uid = randomUUID();
 
-	await usersCollection.updateOne(
-		{ email },
-		{
-			$set: {
-				displayName,
-				fearLevel,
-				favoriteGenres,
-				avatar: avatarPath,
-			},
-		}
-	);
-	res.json({ message: "User registered successfully!" });
+	await usersCollection.insertOne({
+		uid,
+		email,
+		password,
+
+		displayName: "",
+		fearLevel: null,
+		favoriteGenres: [],
+		avatar: null,
+
+		watchlist: [],
+		watched: [],
+
+		createdAt: new Date(),
+	});
+	res.json({ message: "User registered successfully!", uid });
 });
 
 //Profile-setup route
@@ -162,12 +169,12 @@ app.get("/movies", async (req, res) => {
 
 //get profile info
 app.get("/profile", async (req, res) => {
-	const { email } = req.query;
+	const { uid } = req.query;
 
 	if (!usersCollection) {
 		return res.status(500).json({ message: "Database not connected" });
 	}
-	const user = await usersCollection.findOne({ email }, { projection: { password: 0 } });
+	const user = await usersCollection.findOne({ uid }, { projection: { password: 0 } });
 	if (!user) {
 		return res.status(404).json({ message: "User not found" });
 	}

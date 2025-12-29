@@ -26,8 +26,8 @@ registerBtn.addEventListener("click", async () => {
 			return;
 		}
 
-		localStorage.setItem("loggedUser", email);
-		window.location.href = "profile-setup.html";
+		localStorage.setItem("uid", data.uid);
+		globalThis.location.href = "profile-setup.html";
 	} catch (error) {
 		console.error("Error:", error);
 		alert("Could not reach backend");
