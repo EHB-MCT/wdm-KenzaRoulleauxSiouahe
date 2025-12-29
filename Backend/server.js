@@ -7,7 +7,7 @@ const { username, password, cluster, dbName } = require("./config");
 const multer = require("multer");
 const path = require("path");
 
-const { randomUUID } = require("crypto");
+const { randomUUID } = require("node:crypto");
 
 //Credentials
 const uri = `mongodb+srv://${username}:${password}@${cluster}/${dbName}?retryWrites=true&w=majority&appName=${dbName}`;
@@ -118,6 +118,7 @@ app.post("/profile-setup", public.single("avatar"), async (req, res) => {
 
 	res.json({ message: "Profile setup completed" });
 });
+
 //Login route
 app.post("/login", async (req, res) => {
 	const { email, password } = req.body;
@@ -133,7 +134,7 @@ app.post("/login", async (req, res) => {
 
 	//Check user
 	if (!user) {
-		return res.status(400).json({message: "User not found"});
+		return res.status(400).json({ message: "User not found" });
 	}
 	//Check password
 	if (user.password !== password) {
@@ -185,6 +186,25 @@ app.get("/profile", async (req, res) => {
 	res.json(user);
 });
 
+//Event route (user behaviour)
+app.post("/event", async (req, res) => {
+	const { uid, type, data } = req.body;
+
+	if (!uid || !type) {
+		return res.status(400).json({ message: "Missing data" });
+	}
+
+	const event = {
+		uid,
+		type,
+		data,
+		timeStamp: new Date(),
+	};
+
+	await client.db(dbName).collection("events").insertOne(event);
+
+	res.json({ message: "Event stored" });
+});
 const PORT = 5000;
 
 app.listen(PORT, () => {
