@@ -27,6 +27,7 @@ registerBtn.addEventListener("click", async () => {
 		}
 
 		localStorage.setItem("uid", data.uid);
+		localStorage.setItem("email", data.email);
 		globalThis.location.href = "profile-setup.html";
 	} catch (error) {
 		console.error("Error:", error);

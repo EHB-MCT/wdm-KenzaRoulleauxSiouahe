@@ -37,7 +37,7 @@ saveProfileBtn.addEventListener("click", async () => {
 			return;
 		}
 
-		window.location.href = "profile.html";
+		globalThis.location.href = "profile.html";
 	} catch (err) {
 		console.error(err);
 		alert("Could not save profile");

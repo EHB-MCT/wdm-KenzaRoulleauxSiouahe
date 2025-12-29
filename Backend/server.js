@@ -124,15 +124,19 @@ app.post("/login", async (req, res) => {
 	if (!usersCollection) {
 		return res.status(500).json({ message: "Database not connected yet" });
 	}
-	if (!user || !password) {
+	if (!email || !password) {
 		return res.status(400).json({ message: "Please provide username and password." });
 	}
 
 	//Find user in DB
 	const user = await usersCollection.findOne({ email });
 
+	//Check user
+	if (!user) {
+		return res.status(400).json({message: "User not found"});
+	}
 	//Check password
-	if (email.password !== password) {
+	if (user.password !== password) {
 		return res.status(400).json({ message: "Incorrect password" });
 	}
 
@@ -167,7 +171,7 @@ app.get("/movies", async (req, res) => {
 	}
 });
 
-//get profile info
+//Get profile info
 app.get("/profile", async (req, res) => {
 	const { uid } = req.query;
 
