@@ -1,6 +1,7 @@
 const uid = localStorage.getItem("uid");
 
 if (uid) {
+	/*Page view tracking*/
 	fetch("http://localhost:5000/event", {
 		method: "POST",
 		headers: { "Content-Type": "application/json" },
@@ -8,8 +9,27 @@ if (uid) {
 			uid,
 			type: "page_view",
 			data: {
-				page: globalThis / location.pathname,
+				page: globalThis.location.pathname,
 			},
 		}),
+	});
+
+	/*Click tracking*/
+	document.addEventListener("click", (e) => {
+		const target = e.target;
+		fetch("http://localhost:5000/event", {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify({
+				uid,
+				type: "click",
+				data: {
+					tag: target.tagName,
+					id: target.id || null,
+					classes: target.className || null,
+					text: target.innerText || null,
+				},
+			}),
+		});
 	});
 }

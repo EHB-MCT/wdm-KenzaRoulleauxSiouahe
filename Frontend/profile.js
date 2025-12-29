@@ -1,6 +1,5 @@
 const tabButtons = document.querySelectorAll(".tab-btn");
 const sections = document.querySelectorAll(".movies-section");
-const uid = localStorage.getItem("uid");
 const email = localStorage.getItem("loggedUser");
 
 if (!email) {
@@ -19,7 +18,7 @@ tabButtons.forEach((btn) => {
 
 async function loadProfile() {
 	try {
-		const res = await fetch(`http://localhost:5000/profile?uid=${uid}`);
+		const res = await fetch(`http://localhost:5000/profile?uid=${localStorage.getItem("uid")}`);
 		if (!res.ok) {
 			throw new Error("Failed to fetch profile");
 		}
