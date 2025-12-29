@@ -30,6 +30,7 @@ const public = multer({ storage });
 
 let usersCollection;
 let moviesCollection;
+let watchlistCollection;
 
 //Connection to DB
 async function run() {
@@ -40,6 +41,7 @@ async function run() {
 		const db = client.db(dbName);
 		usersCollection = db.collection("users");
 		moviesCollection = db.collection("movies");
+		watchlistCollection = db.collection("watchlists");
 	} catch (err) {
 		console.error("MongoDB connection error:", err);
 	}
@@ -230,6 +232,28 @@ app.post("/heart-rate", async (req, res) => {
 		res.status(500).json({ message: "Heart rate server error" });
 	}
 });
+
+app.post("/watchlist", async (req, res) => {
+	const { uid, movieId, title } = req.body;
+	if (!uid || !movieId) return res.status(400).json({ message: "Missing data" });
+
+	try {
+		const user = await usersCollection.findOne({ uid });
+		if (!user) return res.status(404).json({ message: "User not found" });
+
+		// Prevent duplicates
+		const alreadyAdded = user.watchlist?.some((m) => m.movieId === movieId);
+		if (alreadyAdded) return res.status(400).json({ message: "Already in watchlist" });
+
+		await usersCollection.updateOne({ uid }, { $push: { watchlist: { movieId, title, addedAt: new Date() } } });
+
+		res.json({ message: "Movie added to Want to Watch" });
+	} catch (err) {
+		console.error(err);
+		res.status(500).json({ message: "Could not add movie" });
+	}
+});
+
 const PORT = 5000;
 
 app.listen(PORT, () => {

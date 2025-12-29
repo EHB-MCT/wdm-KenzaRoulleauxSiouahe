@@ -58,9 +58,36 @@ searchInput.addEventListener("input", async () => {
 			<p>Country: ${movie.Country || "N/A"}</p>
 			<p>Subgenre: ${movie.Subgenre || "N/A"}</p>
 			<p>Rating: ${movie.Rating || "N/A"}</p>
+			<button class="add-watchlist-btn" data-id="${movie._id}" data-title="${movie.Title}">
+			Add to Queue
+			</button>
+
 		</div>
 	`;
 
 		resultsDiv.appendChild(item);
+
+		item.querySelector(".add-watchlist-btn").addEventListener("click", async (e) => {
+			const uid = localStorage.getItem("uid");
+			if (!uid) return alert("Not logged in");
+
+			const movieId = e.target.dataset.id;
+			const title = e.target.dataset.title;
+
+			try {
+				const res = await fetch("http://localhost:5000/watchlist", {
+					method: "POST",
+					headers: { "Content-Type": "application/json" },
+					body: JSON.stringify({ uid, movieId, title }),
+				});
+
+				const data = await res.json();
+				if (!res.ok) alert(data.message);
+				else alert("Added to Want to watch");
+			} catch (err) {
+				console.error(err);
+				alert("Could not add the movie");
+			}
+		});
 	});
 });
