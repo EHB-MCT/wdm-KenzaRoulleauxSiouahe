@@ -198,7 +198,7 @@ app.post("/event", async (req, res) => {
 		uid,
 		type,
 		data,
-		timeStamp: new Date().toLocaleString("en-GB", {timeZone: "Europe/Brussels"}),
+		timeStamp: new Date().toLocaleString("en-GB", { timeZone: "Europe/Brussels" }),
 	};
 
 	await client.db(dbName).collection("events").insertOne(event);

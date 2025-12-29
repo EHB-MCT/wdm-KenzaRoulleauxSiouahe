@@ -1,4 +1,5 @@
 const uid = localStorage.getItem("uid");
+const pageStartTime = Date.now();
 
 if (uid) {
 	/*Page view tracking*/
@@ -28,6 +29,25 @@ if (uid) {
 					id: target.id || null,
 					classes: target.className || null,
 					text: target.innerText || null,
+				},
+			}),
+		});
+	});
+
+	/*Time spent tracking*/
+	globalThis.addEventListener("beforeunload", () => {
+		const timeSpentMs = Date.now() - pageStartTime;
+		const timeSpentS = Math.round(timeSpentMs / 1000);
+
+		fetch("http://localhost:5000/event", {
+			method: "POST",
+			headers: { "Content-Type": "application/json" },
+			body: JSON.stringify({
+				uid: localStorage.getItem("uid"),
+				type: "time_on_page",
+				data: {
+					page: globalThis.location.pathname,
+					timeSpentS,
 				},
 			}),
 		});
