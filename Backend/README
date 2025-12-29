@@ -1,4 +1,5 @@
 # Sources backend:
+
 - Amm, T. (2025, August 1). What Is a .env File and Why Should You Use It? DEV Community. https://dev.to/talaamm/what-is-a-env-file-and-why-should-you-use-it-599o
 
 used for the .env file for the config.js
@@ -6,6 +7,10 @@ used for the .env file for the config.js
 - Date - JavaScript | MDN. (n.d.). https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date
 
 used for the 'Date' property
+
+- Date.prototype.toLocaleString() - JavaScript | MDN. (n.d.). https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString
+
+used to convert default time and date to local time and date
 
 - Express. (n.d.). https://expressjs.com/en/starter/hello-world.html
 
@@ -16,11 +21,12 @@ starter for 'express'
 routing starter for 'express'
 
 - GeeksforGeeks. (2025a, July 23). Difference between res.send() and res.json() in Express.js? GeeksforGeeks. https://www.geeksforgeeks.org/node-js/difference-between-res-send-and-res-json-in-express-js/
+
 used for 'res.json'
 
 - GeeksforGeeks. (2025b, July 28). JavaScript comparison operators. GeeksforGeeks. https://www.geeksforgeeks.org/javascript/javascript-comparison-operators/
 
-compairison operator used in movie.js, 
+comparison operator used in movie.js,
 
 - GeeksforGeeks. (2025c, July 23). How to Perform Text Search in MongoDB using Node.js? GeeksforGeeks. https://www.geeksforgeeks.org/mongodb/how-to-perform-text-search-in-mongodb-using-node-js/
 
@@ -44,7 +50,7 @@ used to create my 'POST' route
 
 - Team, M. D. (n.d.-a). $regex. Database Manual - MongoDB Docs. https://www.mongodb.com/docs/manual/reference/operator/query/regex/
 
-used for pattern matching stringsin queries 
+used for pattern matching stringsin queries
 
 - Team, M. D. (n.d.-b). $set (update operator). Database Manual - MongoDB Docs. https://www.mongodb.com/docs/manual/reference/operator/update/set/?msockid=250a495d4a65692b05435f904b336897
 
@@ -53,3 +59,7 @@ used for the '$set' update operator in MongoDB
 - Team, M. D. (n.d.-c). Connection strings. Database Manual - MongoDB Docs. https://www.mongodb.com/docs/manual/reference/connection-string/?deployment-type=atlas&interface-atlas-only=atlas-cli&msockid=250a495d4a65692b05435f904b336897
 
 connection string for MongoDB
+
+- Transcoding. (2024, February 3). Taming Timezones: JavaScript UTC to Local Time conversion. Transcoding. https://transcoding.org/javascript/convert-utc-to-local-time/
+
+used to convert default time and date to local time and date
