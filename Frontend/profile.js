@@ -1,6 +1,7 @@
 const tabButtons = document.querySelectorAll(".tab-btn");
 const sections = document.querySelectorAll(".movies-section");
 const uid = localStorage.getItem("uid");
+const email = localStorage.getItem("loggedUser");
 
 if (!email) {
 	globalThis.location.href = "login.html";
