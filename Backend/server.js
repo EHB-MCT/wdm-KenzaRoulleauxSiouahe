@@ -205,6 +205,31 @@ app.post("/event", async (req, res) => {
 
 	res.json({ message: "Event stored" });
 });
+
+//Heart rate route
+app.post("/heart-rate", async (req, res) => {
+	try {
+		const { uid, heartRate, intensity } = req.body;
+
+		if (!uid || !heartRate) {
+			return res.status(400).json({ message: "Missing heart rate data" });
+		}
+
+		await client.db(dbName).collection("heartRates").insertOne({
+			uid,
+			type: "heart_rate",
+			data: {
+				heartRate,
+				intensity,
+			},
+			timeStamp: new Date(),
+		});
+
+		res.json({ message: "Heart rate recorded" });
+	} catch (err) {
+		res.status(500).json({ message: "Heart rate server error" });
+	}
+});
 const PORT = 5000;
 
 app.listen(PORT, () => {
