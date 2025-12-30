@@ -258,6 +258,21 @@ app.post("/watchlist", async (req, res) => {
 	}
 });
 
+app.get("/watchlist", async (req, res) => {
+	const { uid } = req.query;
+	if (!uid) return res.status(400).json({ message: "Missing uid" });
+
+	try {
+		const user = await usersCollection.findOne({ uid });
+		if (!user) return res.status(400).json({ message: "User not found" });
+
+		res.json(user.watchlist || []);
+	} catch (err) {
+		console.log(err);
+		res.status(500).json({ message: "Could not load watchlist" });
+	}
+});
+
 const PORT = 5000;
 
 app.listen(PORT, () => {
