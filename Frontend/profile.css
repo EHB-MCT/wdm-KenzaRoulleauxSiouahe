@@ -45,12 +45,10 @@
 /* Movies compartiments */
 .movies-section {
 	display: none;
-	grid-template-columns: repeat(3, 1fr);
-	gap: 10px;
 }
 
 .movies-section.active {
-	display: grid;
+	display: block;
 }
 
 .movies-section img {
@@ -59,22 +57,38 @@
 	object-fit: cover;
 	border-radius: 6px;
 }
+#to-watch {
+	flex: 1;
+	overflow-y: auto;
+}
 
 #toWatchList {
 	display: grid;
-	grid-template-columns: repeat(3, 1fr);
-	gap: 10px;
-	padding: 10px;
-	overflow-y: auto;
+	grid-template-columns: repeat(4, 1fr);
+	gap: 8px;
+	padding: 6px 4px;
+	justify-content: start;
+	justify-items: center;
 }
 
 .watchlist-poster {
 	width: 100%;
-	border-radius: 8px;
+	height: 132px;
+	object-fit: cover;
+	border-radius: 6px;
 	cursor: pointer;
 	transition: transform 0.2s ease;
 }
 
 .watchlist-poster:hover {
 	transform: scale(1.05);
+}
+
+.watchlist-item {
+	position: relative;
+	width: 100%;
+}
+
+#to-watch.movies-selection.active {
+	display: block;
 }

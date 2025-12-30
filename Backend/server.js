@@ -251,6 +251,7 @@ app.post("/heart-rate", async (req, res) => {
 	}
 });
 
+//Post movies to the watchlist
 app.post("/watchlist", async (req, res) => {
 	const { uid, movieId, title } = req.body;
 	if (!uid || !movieId) return res.status(400).json({ message: "Missing data" });
@@ -275,6 +276,7 @@ app.post("/watchlist", async (req, res) => {
 	}
 });
 
+//Get movies to the watchlist
 app.get("/watchlist", async (req, res) => {
 	const { uid, poster } = req.query;
 	if (!uid) return res.status(400).json({ message: "Missing uid" });
@@ -289,7 +291,21 @@ app.get("/watchlist", async (req, res) => {
 		res.status(500).json({ message: "Could not load watchlist" });
 	}
 });
+//Delete  movies in the watchlist
+app.delete("/watchlist", async (req, res) => {
+	const { uid, movieId } = req.query;
+	if (!uid || !movieId) {
+		return res.status(400).json({ message: "Missing data" });
+	}
 
+	try {
+		await usersCollection.updateOne({ uid }, { $pull: { watchlist: { movieId } } });
+		res.json({message: "Movie removed from watchlist"});
+	} catch (err) {
+		console.log(err);
+		res.status(500).json({ message: "Could not remove movie" });
+	}
+});
 const PORT = 5000;
 
 app.listen(PORT, () => {
