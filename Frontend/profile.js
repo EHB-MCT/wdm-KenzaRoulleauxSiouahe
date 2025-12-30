@@ -45,6 +45,7 @@ document.addEventListener("DOMContentLoaded", () => {
 			if (!res.ok) throw new Error("Failed to load watchlist");
 
 			const watchlist = await res.json();
+			console.log("WATCHLIST FROM API:", watchlist);
 			const container = document.getElementById("toWatchList");
 			container.innerHTML = "";
 
@@ -54,7 +55,7 @@ document.addEventListener("DOMContentLoaded", () => {
 			}
 			watchlist.forEach((movie) => {
 				const img = document.createElement("img");
-				img.src = `http://localhost:5000/posters/${movie.movieId}.jpg`;
+				img.src = `http://localhost:5000${movie.Poster}`;
 				img.classList.add("watchlist-poster");
 
 				img.addEventListener("click", () => {

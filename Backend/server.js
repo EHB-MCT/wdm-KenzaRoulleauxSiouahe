@@ -252,7 +252,7 @@ app.post("/heart-rate", async (req, res) => {
 });
 
 app.post("/watchlist", async (req, res) => {
-	const { uid, movieId, title, poster } = req.body;
+	const { uid, movieId, title } = req.body;
 	if (!uid || !movieId) return res.status(400).json({ message: "Missing data" });
 
 	try {
@@ -263,7 +263,10 @@ app.post("/watchlist", async (req, res) => {
 		const alreadyAdded = user.watchlist?.some((m) => m.movieId === movieId);
 		if (alreadyAdded) return res.status(400).json({ message: "Already in watchlist" });
 
-		await usersCollection.updateOne({ uid }, { $push: { watchlist: { movieId, title, poster, addedAt: new Date() } } });
+		const { ObjectId } = require("mongodb");
+		const movie = await moviesCollection.findOne({ _id: new ObjectId(movieId) });
+		if (!movie) return res.status(404).json({ message: "Movie not found" });
+		await usersCollection.updateOne({ uid }, { $push: { watchlist: { movieId, title, Poster: movie.Poster, addedAt: new Date() } } });
 
 		res.json({ message: "Movie added to Want to Watch" });
 	} catch (err) {
