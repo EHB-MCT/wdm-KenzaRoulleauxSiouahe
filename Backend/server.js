@@ -146,7 +146,7 @@ app.post("/login", async (req, res) => {
 	res.json({ message: "Login successful!" });
 });
 
-//Movies route
+//Fetch multiple movies route
 app.get("/movies", async (req, res) => {
 	try {
 		const searchQuery = req.query.q;
@@ -168,6 +168,20 @@ app.get("/movies", async (req, res) => {
 		}
 
 		res.json(movies);
+	} catch (err) {
+		console.error(err);
+		res.status(500).json({ message: "Server error" });
+	}
+});
+
+//Fetch One movie route
+app.get("/movies/:id", async (req, res) => {
+	const { id } = req.params;
+	try {
+		const { ObjectId } = require("mongodb");
+		const movie = await moviesCollection.findOne({ _id: new ObjectId(id) });
+		if (!movie) return res.status(404).json({ message: "Movie not found" });
+		res.json(movie);
 	} catch (err) {
 		console.error(err);
 		res.status(500).json({ message: "Server error" });
@@ -238,7 +252,7 @@ app.post("/heart-rate", async (req, res) => {
 });
 
 app.post("/watchlist", async (req, res) => {
-	const { uid, movieId, title } = req.body;
+	const { uid, movieId, title, poster } = req.body;
 	if (!uid || !movieId) return res.status(400).json({ message: "Missing data" });
 
 	try {
@@ -249,7 +263,7 @@ app.post("/watchlist", async (req, res) => {
 		const alreadyAdded = user.watchlist?.some((m) => m.movieId === movieId);
 		if (alreadyAdded) return res.status(400).json({ message: "Already in watchlist" });
 
-		await usersCollection.updateOne({ uid }, { $push: { watchlist: { movieId, title, addedAt: new Date() } } });
+		await usersCollection.updateOne({ uid }, { $push: { watchlist: { movieId, title, poster, addedAt: new Date() } } });
 
 		res.json({ message: "Movie added to Want to Watch" });
 	} catch (err) {
@@ -259,11 +273,11 @@ app.post("/watchlist", async (req, res) => {
 });
 
 app.get("/watchlist", async (req, res) => {
-	const { uid } = req.query;
+	const { uid, poster } = req.query;
 	if (!uid) return res.status(400).json({ message: "Missing uid" });
 
 	try {
-		const user = await usersCollection.findOne({ uid });
+		const user = await usersCollection.findOne({ uid, poster });
 		if (!user) return res.status(400).json({ message: "User not found" });
 
 		res.json(user.watchlist || []);

@@ -1,23 +1,26 @@
-const params = new URLSearchParams(window.location.search);
+const params = new URLSearchParams(globalThis.location.search);
 const movieId = params.get("id");
 
-async function loadMovie(){
-    const res = await fetch(`http://localhost:5000/movies?id=${movieId}`);
-    const movie = await res.json();
+async function loadMovie() {
+	try {
+		const res = await fetch(`http://localhost:5000/movies/${movieId}`);
+		if (!res.ok) throw new Error("Failed to fetch movie");
 
-    document.getElementById("moviePoster").src = `http://localhost:5000/${movies.Poster}`;
-    document.getElementById("movieTitle").textContent = movie.Title;
-    document.getElementById("movieInfo").textContent=`
+		const movie = await res.json();
+		document.getElementById("moviePoster").src = `http://localhost:5000${movie.Poster}`;
+		document.getElementById("movieTitle").textContent = movie.Title;
+		document.getElementById("movieInfo").textContent = `
     Duration: ${movie.Duration}
     Genre: ${movie.Subgenre}
     Language: ${movie.Language}
     Year: ${movie.Year}
     Rating: ${movie.Rating}
     `;
+	} catch (err) {
+		console.error("Error loading movie:", err);
+	}
 }
-
-document.getElementById("startMovieBtn").addEventListener("click", () =>{
-    localStorage.setItem("currentMovie", movieId);
-
+document.getElementById("startMovieBtn").addEventListener("click", () => {
+	localStorage.setItem("currentMovie", movieId);
 });
 loadMovie();
