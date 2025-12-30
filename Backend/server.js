@@ -217,19 +217,23 @@ app.post("/heart-rate", async (req, res) => {
 			return res.status(400).json({ message: "Missing heart rate data" });
 		}
 
-		await client.db(dbName).collection("heartRates").insertOne({
-			uid,
-			type: "heart_rate",
-			data: {
-				heartRate,
-				intensity,
-			},
-			timeStamp: new Date(),
-		});
+		await client
+			.db(dbName)
+			.collection("heartRates")
+			.insertOne({
+				uid,
+				type: "heart_rate",
+				data: {
+					heartRate,
+					intensity,
+				},
+				timeStamp: new Date().toLocaleString("en-GB", { timeZone: "Europe/Brussels" }),
+			});
 
 		res.json({ message: "Heart rate recorded" });
 	} catch (err) {
-		res.status(500).json({ message: "Heart rate server error" });
+		console.error("Heart rate error:", err);
+		res.status(500).json({ message: "Server error" });
 	}
 });
 
