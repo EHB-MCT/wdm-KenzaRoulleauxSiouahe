@@ -39,10 +39,8 @@ document.addEventListener("DOMContentLoaded", () => {
 	loadProfile();
 
 	async function loadWatchList() {
-		const uid = localStorage.getItem("uid");
-		if (!uid) return;
-
 		try {
+			const uid = localStorage.getItem("uid");
 			const res = await fetch(`http://localhost:5000/watchlist?uid=${uid}`);
 			if (!res.ok) throw new Error("Failed to load watchlist");
 
@@ -55,16 +53,14 @@ document.addEventListener("DOMContentLoaded", () => {
 				return;
 			}
 			watchlist.forEach((movie) => {
-				const item = document.createElement("div");
-				item.classList.add("movie-card");
+				const img = document.createElement("img");
+				img.src = `http://localhost:5000/posters/${movie.movieId}.jpg`;
+				img.classList.add("watchlist-poster");
 
-				item.innerHTML = `
-			<h4> ${movie.title}</h4>
-			<button class= "start-movie-btn" data-id="${movie.movieId}">
-			Start Watching
-			</button>
-			`;
-				container.appendChild(item);
+				img.addEventListener("click", () => {
+					window.location.href = `movie-detail.html?id=${movie.movieId}`;
+				});
+				container.appendChild(img);
 			});
 		} catch (err) {
 			console.error("Watchlist error:", err);
