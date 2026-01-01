@@ -8,12 +8,8 @@ const movieId = localStorage.getItem("currentMovie");
 const uid = localStorage.getItem("uid");
 const bpmDisplay = document.getElementById("bpmLabel");
 
-let x = 0;
-let paused = false;
-let lastSpikeTime = 0;
-
 async function loadMovieInfo() {
-	const res = await fetch(`http://localhost:5000/movies?id=${movieId}`);
+	const res = await fetch(`http://localhost:5000/movies/${movieId}`);
 	const movie = await res.json();
 
 	document.getElementById("nowWatching").textContent = `Now watching: ${movie.Title}`;
@@ -22,6 +18,10 @@ async function loadMovieInfo() {
 }
 
 loadMovieInfo();
+
+let x = 0;
+let paused = false;
+let lastSpikeTime = 0;
 
 function drawECG() {
 	if (paused) return;
