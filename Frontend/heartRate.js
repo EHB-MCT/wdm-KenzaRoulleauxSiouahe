@@ -28,8 +28,10 @@ setInterval(() => {
 		headers: { "Content-Type": "application/json" },
 		body: JSON.stringify({
 			uid,
+			movieId: localStorage.getItem("currentMovie"),
 			heartRate,
 			intensity,
+			timestamp: new Date()
 		}),
 	});
 }, 10000);

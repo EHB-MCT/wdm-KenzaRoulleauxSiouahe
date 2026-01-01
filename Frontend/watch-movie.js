@@ -75,7 +75,34 @@ document.getElementById("pauseBtn").addEventListener("click", () => {
 });
 
 document.getElementById("finishBtn").addEventListener("click", async () => {
-	globalThis.location.href = "profile.html";
+	clearInterval(interval);
+
+	const uid = localStorage.getItem("uid");
+	const movieId = localStorage.getItem("currentMovie");
+
+	const res = await fetch(`http://localhost:5000/heart-rate/movie?uid=${uid}&movieId=${movieId}`);
+	const bpmReadings = await res.json();
+
+	const heartRates = bpmReadings.map((r) => r.data.heartRate);
+
+	const averageBPM = heartRates.reduce((a, b) => a + b, 0) / heartRates.length || 0;
+	const maxBPM = Math.max(...heartRates);
+	const minBPM = Math.min(...heartRates);
+
+	localStorage.setItem(
+		"lastMovieSummary",
+		JSON.stringify({
+			movieId,
+			averageBPM,
+			maxBPM,
+			minBPM,
+		})
+	);
+
+	if (window.heartRateInterval) {
+		clearInterval(window.heartRateInterval);
+	}
+	globalThis.location.href = "movie-summary.html";
 });
 document.getElementById("stopBtn").addEventListener("click", async () => {
 	clearInterval(interval);

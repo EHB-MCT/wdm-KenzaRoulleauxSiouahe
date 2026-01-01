@@ -8,6 +8,7 @@ const multer = require("multer");
 const path = require("path");
 
 const { randomUUID } = require("node:crypto");
+const { timeStamp } = require("node:console");
 
 //Credentials
 const uri = `mongodb+srv://${username}:${password}@${cluster}/${dbName}?retryWrites=true&w=majority&appName=${dbName}`;
@@ -240,6 +241,7 @@ app.post("/heart-rate", async (req, res) => {
 				data: {
 					heartRate,
 					intensity,
+					movieId,
 				},
 				timeStamp: new Date().toLocaleString("en-GB", { timeZone: "Europe/Brussels" }),
 			});
@@ -250,7 +252,19 @@ app.post("/heart-rate", async (req, res) => {
 		res.status(500).json({ message: "Server error" });
 	}
 });
+app.get("/heart-rate/movie", async (req, res) => {
+	const { uid, movieId } = req.query;
+	if (!uid || !movieId) return res.status(400).json({ message: "Missing uid or movieId" });
 
+	try {
+		const readings = await client.db(dbName).collection("heartRates").find({ uid, "data.movieId": movieId }).sort({ timeStamp: 1 }).toArray();
+
+		res.json(readings);
+	} catch (err) {
+		console.error(err);
+		res.status(500).json({ message: "Server error" });
+	}
+});
 //Post movies to the watchlist
 app.post("/watchlist", async (req, res) => {
 	const { uid, movieId, title } = req.body;
@@ -300,10 +314,23 @@ app.delete("/watchlist", async (req, res) => {
 
 	try {
 		await usersCollection.updateOne({ uid }, { $pull: { watchlist: { movieId } } });
-		res.json({message: "Movie removed from watchlist"});
+		res.json({ message: "Movie removed from watchlist" });
 	} catch (err) {
 		console.log(err);
 		res.status(500).json({ message: "Could not remove movie" });
+	}
+});
+
+app.post("/watched", async (req, res) => {
+	const { uid, movieId, scaryScore, watchedAt } = req.body;
+	if (!uid || !movieId) return res.status(400).json({ message: "Missing data" });
+
+	try {
+		await usersCollection.updateOne({ uid }, { $push: { watched: { movieId, scaryScore, watchedAt } } });
+		res.json({ message: "Movie added to watched" });
+	} catch (err) {
+		console.error(err);
+		res.status(500).json({ message: "Could not add to watched" });
 	}
 });
 const PORT = 5000;
