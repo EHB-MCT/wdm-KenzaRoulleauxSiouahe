@@ -31,6 +31,9 @@ document.addEventListener("DOMContentLoaded", async () => {
 				watchedAt: new Date().toLocaleString("en-GB", { timeZone: "Europe/Brussels" }),
 			}),
 		});
+		await fetch(`http://localhost:5000/watchlist?uid=${uid}&movieId=${movieId}`, {
+			method: "DELETE",
+		}).catch((err) => console.error("Error removing from watchlist:", err));
 
 		localStorage.removeItem("lastMovieSummary");
 
