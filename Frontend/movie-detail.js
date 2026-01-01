@@ -23,4 +23,26 @@ async function loadMovie() {
 document.getElementById("startMovieBtn").addEventListener("click", () => {
 	localStorage.setItem("currentMovie", movieId);
 });
+
+document.getElementById("deleteMovieBtn").addEventListener("click", async () => {
+	const uid = localStorage.getItem("uid");
+	const confirmDelete = confirm("Are you sure you want to remove this movie from your watchlist?");
+	if (!confirmDelete) return;
+
+	try {
+		const res = await fetch(`http://localhost:5000/watchlist?uid=${uid}&movieId=${movieId}`, {
+			method: "DELETE",
+		});
+		const data = await res.json();
+		if (!res.ok) {
+			alert(data.message || "Could not remove movie");
+			return;
+		}
+		console.log("Movie removed from watchlist");
+		globalThis.location.href = "profile.html";
+	} catch (err) {
+		console.error(err);
+		alert("Error removing movie");
+	}
+});
 loadMovie();
