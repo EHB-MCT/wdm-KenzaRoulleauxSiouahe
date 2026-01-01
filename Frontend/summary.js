@@ -26,6 +26,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 			body: JSON.stringify({
 				uid,
 				movieId,
+				poster: movie.Poster,
 				scaryScore,
 				watchedAt: new Date().toLocaleString("en-GB", { timeZone: "Europe/Brussels" }),
 			}),

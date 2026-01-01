@@ -92,3 +92,32 @@
 #to-watch.movies-selection.active {
 	display: block;
 }
+#watchedList {
+	display: grid;
+	grid-template-columns: repeat(4, 1fr);
+	gap: 8px;
+	padding: 6px 4px;
+	justify-items: center;
+}
+
+.watched-item {
+	position: relative;
+	width: 100%;
+	cursor: pointer;
+}
+
+.watched-poster {
+	filter: brightness(0.55);
+}
+
+.fear-score {
+	position: absolute;
+	bottom: 6px;
+	right: 6px;
+	background: rgba(139, 0, 0, 0.9);
+	color: white;
+	font-size: 18px;
+	font-weight: bold;
+	padding: 4px 6px;
+	border-radius: 6px;
+}

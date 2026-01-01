@@ -5,10 +5,11 @@ const { MongoClient, ServerApiVersion } = require("mongodb");
 const { username, password, cluster, dbName } = require("./config");
 
 const multer = require("multer");
-const path = require("path");
+const path = require("node:path");
 
 const { randomUUID } = require("node:crypto");
 const { timeStamp } = require("node:console");
+const { ObjectId } = require("mongodb");
 
 //Credentials
 const uri = `mongodb+srv://${username}:${password}@${cluster}/${dbName}?retryWrites=true&w=majority&appName=${dbName}`;
@@ -322,12 +323,50 @@ app.delete("/watchlist", async (req, res) => {
 });
 
 app.post("/watched", async (req, res) => {
-	const { uid, movieId, scaryScore, watchedAt } = req.body;
-	if (!uid || !movieId) return res.status(400).json({ message: "Missing data" });
-
 	try {
-		await usersCollection.updateOne({ uid }, { $push: { watched: { movieId, scaryScore, watchedAt } } });
+		const { uid, movieId, scaryScore, watchedAt } = req.body;
+
+		if (!uid || !movieId || !scaryScore) {
+			return res.status(400).json({ message: "Missing data" });
+		}
+
+		// Find the movie in movies collection
+		const movieData = await moviesCollection.findOne({ _id: new ObjectId(movieId) });
+		if (!movieData) return res.status(404).json({ message: "Movie not found" });
+
+		// Insert into watched collection
+		await client
+			.db(dbName)
+			.collection("watched")
+			.insertOne({
+				uid,
+				movieId,
+				poster: movieData.Poster, 
+				title: movieData.Title, 
+				scaryScore,
+				watchedAt: watchedAt || new Date().toLocaleString("en-GB", { timeZone: "Europe/Brussels" }),
+			});
+
 		res.json({ message: "Movie added to watched" });
+	} catch (err) {
+		console.error("POST /watched error:", err);
+		res.status(500).json({ message: "Server error" });
+	}
+});
+
+app.get("/watched", async (req, res) => {
+	try {
+		const { uid } = req.query;
+		if (!uid) return res.status(400).json({ message: "Missing uid" });
+
+		const watchedMovies = await client
+			.db(dbName)
+			.collection("watched")
+			.find({ uid })
+			.sort({ watchedAt: -1 })
+			.toArray();
+
+		res.json(watchedMovies);
 	} catch (err) {
 		console.error(err);
 		res.status(500).json({ message: "Could not add to watched" });

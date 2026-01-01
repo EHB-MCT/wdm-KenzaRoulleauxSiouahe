@@ -58,7 +58,7 @@ document.addEventListener("DOMContentLoaded", () => {
 				img.classList.add("watchlist-poster");
 
 				img.addEventListener("click", () => {
-					window.location.href = `movie-detail.html?id=${movie.movieId}`;
+					globalThis.location.href = `movie-detail.html?id=${movie.movieId}`;
 				});
 				container.appendChild(img);
 			});
@@ -67,4 +67,47 @@ document.addEventListener("DOMContentLoaded", () => {
 		}
 	}
 	loadWatchList();
+
+	async function loadWatchedList() {
+		try {
+			const uid = localStorage.getItem("uid");
+			const res = await fetch(`http://localhost:5000/watched?uid=${uid}`);
+			if (!res.ok) throw new Error("Failed to load watched movies");
+
+			const watched = await res.json();
+			const container = document.getElementById("watchedList");
+			container.innerHTML = "";
+
+			if (watched.length === 0) {
+				container.innerHTML = "<p>No watched movies yet.</p>";
+				return;
+			}
+
+			watched.forEach((movie) => {
+				const item = document.createElement("div");
+				item.classList.add("watched-item");
+
+				const img = document.createElement("img");
+				img.src = `http://localhost:5000${movie.poster || movie.Poster}`;
+				img.classList.add("watchlist-poster", "watched-poster");
+
+				const score = document.createElement("div");
+				score.classList.add("fear-score");
+				score.textContent = movie.scaryScore;
+
+				item.appendChild(img);
+				item.appendChild(score);
+
+				item.addEventListener("click", () => {
+					globalThis.location.href = `movie-detail.html?id=${movie.movieId}`;
+				});
+
+				container.appendChild(item);
+			});
+		} catch (err) {
+			console.error("Watched list error:", err);
+		}
+	}
+
+	loadWatchedList();
 });
