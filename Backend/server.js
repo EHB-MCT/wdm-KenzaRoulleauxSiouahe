@@ -226,7 +226,7 @@ app.post("/event", async (req, res) => {
 //Heart rate route
 app.post("/heart-rate", async (req, res) => {
 	try {
-		const { uid, heartRate, intensity } = req.body;
+		const { uid, heartRate, intensity, movieId } = req.body;
 
 		if (!uid || !heartRate) {
 			return res.status(400).json({ message: "Missing heart rate data" });
