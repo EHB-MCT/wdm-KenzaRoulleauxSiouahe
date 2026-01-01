@@ -1,0 +1,63 @@
+.iphone {
+	display: flex;
+	flex-direction: column;
+	padding: 12px;
+	gap: 12px;
+}
+#moviePoster {
+	width: 60%;
+	max-width: 180px;
+	align-self: center;
+	margin-top: 25%;
+	border-radius: 8px;
+	object-fit: cover;
+	box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+}
+#movieTitle {
+	text-align: center;
+	font-size: 18px;
+	font-weight: 600;
+	margin: 6px 0;
+	color: #222;
+}
+#movieInfo {
+	font-size: 15px;
+	color: #555;
+	line-height: 1.4;
+	white-space: pre-line;
+	text-align: center;
+	margin-top: -5%;
+}
+
+#startMovieBtn,
+#deleteMovieBtn {
+	width: 70%;
+	padding: 10px;
+	font-size: 14px;
+	border-radius: 6px;
+	border: none;
+	cursor: pointer;
+	align-self: center;
+}
+
+#startMovieBtn {
+	background-color: #8b0000;
+	color: white;
+	font-weight: 600;
+	margin-top: 10px;
+}
+
+#startMovieBtn:hover {
+	background-color: #a30000;
+}
+
+#deleteMovieBtn {
+	background-color: transparent;
+	color: #8b0000;
+	border: 1px solid #8b0000;
+	margin-top: 6px;
+}
+
+#deleteMovieBtn:hover {
+	background-color: rgba(139, 0, 0, 0.08);
+}
