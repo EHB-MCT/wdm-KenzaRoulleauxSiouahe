@@ -23,7 +23,7 @@ async function loadMovie() {
 document.getElementById("startMovieBtn").addEventListener("click", () => {
 	localStorage.setItem("currentMovie", movieId);
 });
-
+loadMovie();
 document.getElementById("deleteMovieBtn").addEventListener("click", async () => {
 	const uid = localStorage.getItem("uid");
 	const confirmDelete = confirm("Are you sure you want to remove this movie from your watchlist?");
@@ -45,4 +45,6 @@ document.getElementById("deleteMovieBtn").addEventListener("click", async () => 
 		alert("Error removing movie");
 	}
 });
-loadMovie();
+document.getElementById("backBtn").addEventListener("click", () => {
+	globalThis.location.href = "profile.html";
+});
