@@ -45,7 +45,6 @@ document.addEventListener("DOMContentLoaded", () => {
 			if (!res.ok) throw new Error("Failed to load watchlist");
 
 			const watchlist = await res.json();
-			console.log("WATCHLIST FROM API:", watchlist);
 			const container = document.getElementById("toWatchList");
 			container.innerHTML = "";
 

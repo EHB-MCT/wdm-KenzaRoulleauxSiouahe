@@ -48,3 +48,10 @@ document.getElementById("deleteMovieBtn").addEventListener("click", async () => 
 document.getElementById("backBtn").addEventListener("click", () => {
 	globalThis.location.href = "profile.html";
 });
+
+document.getElementById("startMovieBtn").addEventListener("click", () => {
+	const movieId = localStorage.getItem("currentMovie");
+	if (!movieId) return;
+
+	globalThis.location.href = "watch-movie.html";
+});
