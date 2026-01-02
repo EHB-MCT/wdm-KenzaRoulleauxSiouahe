@@ -101,26 +101,35 @@ app.post("/register", async (req, res) => {
 
 //Profile-setup route
 app.post("/profile-setup", public.single("avatar"), async (req, res) => {
-	const { email, displayName, fearLevel, favoriteGenres } = req.body;
-	const avatarPath = req.file ? `/avatars/${req.file.filename}` : null;
+	try {
+		const { uid, displayName, fearLevel, favoriteGenres } = req.body;
+		const avatarPath = req.file ? `/avatars/${req.file.filename}` : null;
 
-	if (!usersCollection) {
-		return res.status(500).json({ message: "Database not connected" });
-	}
-
-	await usersCollection.updateOne(
-		{ email },
-		{
-			$set: {
-				displayName,
-				fearLevel,
-				favoriteGenres: JSON.parse(favoriteGenres),
-				avatar: avatarPath,
-			},
+		if (!usersCollection) {
+			return res.status(500).json({ message: "Database not connected" });
 		}
-	);
 
-	res.json({ message: "Profile setup completed" });
+		const result = await usersCollection.updateOne(
+			{ uid },
+			{
+				$set: {
+					displayName,
+					fearLevel: Number(fearLevel),
+					favoriteGenres: JSON.parse(favoriteGenres),
+					...(avatarPath && { avatar: avatarPath }),
+				},
+			}
+		);
+
+		if (result.matchedCount === 0) {
+			return res.status(404).json({ message: "User not found" });
+		}
+
+		res.json({ message: "Profile setup completed" });
+	} catch (err) {
+		console.error("Profile setup error:", err);
+		res.status(500).json({ message: "Server error" });
+	}
 });
 
 //Login route
@@ -341,8 +350,8 @@ app.post("/watched", async (req, res) => {
 			.insertOne({
 				uid,
 				movieId,
-				poster: movieData.Poster, 
-				title: movieData.Title, 
+				poster: movieData.Poster,
+				title: movieData.Title,
 				scaryScore,
 				watchedAt: watchedAt || new Date().toLocaleString("en-GB", { timeZone: "Europe/Brussels" }),
 			});
@@ -359,12 +368,7 @@ app.get("/watched", async (req, res) => {
 		const { uid } = req.query;
 		if (!uid) return res.status(400).json({ message: "Missing uid" });
 
-		const watchedMovies = await client
-			.db(dbName)
-			.collection("watched")
-			.find({ uid })
-			.sort({ watchedAt: -1 })
-			.toArray();
+		const watchedMovies = await client.db(dbName).collection("watched").find({ uid }).sort({ watchedAt: -1 }).toArray();
 
 		res.json(watchedMovies);
 	} catch (err) {

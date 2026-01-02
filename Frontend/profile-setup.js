@@ -1,8 +1,9 @@
 const saveProfileBtn = document.getElementById("saveProfileBtn");
 const loggedUser = localStorage.getItem("loggedUser");
+const uid = localStorage.getItem("uid");
 
 if (!loggedUser) {
-	window.location.href = "login.html";
+	globalThis.location.href = "login.html";
 }
 
 saveProfileBtn.addEventListener("click", async () => {
@@ -18,12 +19,12 @@ saveProfileBtn.addEventListener("click", async () => {
 	}
 
 	const formData = new FormData();
-	formData.append("email", loggedUser);
+	formData.append("uid", uid);
 	formData.append("displayName", displayName);
 	formData.append("fearLevel", fearLevel);
 	formData.append("favoriteGenres", JSON.stringify(selectedGenres));
 	formData.append("avatar", avatarFile);
-
+	
 
 	try {
 		const res = await fetch("http://localhost:5000/profile-setup", {
