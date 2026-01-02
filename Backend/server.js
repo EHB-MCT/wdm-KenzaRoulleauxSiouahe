@@ -157,6 +157,47 @@ app.post("/login", async (req, res) => {
 	res.json({ message: "Login successful!" });
 });
 
+//Get profile info
+app.get("/profile", async (req, res) => {
+	const { uid } = req.query;
+
+	if (!usersCollection) {
+		return res.status(500).json({ message: "Database not connected" });
+	}
+	const user = await usersCollection.findOne({ uid }, { projection: { password: 0 } });
+	if (!user) {
+		return res.status(404).json({ message: "User not found" });
+	}
+	res.json(user);
+});
+
+//Recommended movies based on favorite subgenre
+app.get("/movies/recommended", async (req, res) => {
+	try {
+		const { uid } = req.query;
+		if (!uid) {
+			return res.status(400).json({ message: "Missing uid" });
+		}
+
+		const user = await usersCollection.findOne({ uid });
+		if (!user || !user.favoriteGenres || user.favoriteGenres.length === 0) {
+			return res.json([]);
+		}
+		const movies = await moviesCollection
+			.find({
+				$or: user.favoriteGenres.map((genre) => ({
+					Subgenre: { $regex: genre, $options: "i" },
+				})),
+			})
+			.limit(20)
+			.toArray();
+
+		res.json(movies);
+	} catch (err) {
+		console.error(err);
+		res.status(500).json({ message: "Server error" });
+	}
+});
 //Fetch multiple movies route
 app.get("/movies", async (req, res) => {
 	try {
@@ -197,20 +238,6 @@ app.get("/movies/:id", async (req, res) => {
 		console.error(err);
 		res.status(500).json({ message: "Server error" });
 	}
-});
-
-//Get profile info
-app.get("/profile", async (req, res) => {
-	const { uid } = req.query;
-
-	if (!usersCollection) {
-		return res.status(500).json({ message: "Database not connected" });
-	}
-	const user = await usersCollection.findOne({ uid }, { projection: { password: 0 } });
-	if (!user) {
-		return res.status(404).json({ message: "User not found" });
-	}
-	res.json(user);
 });
 
 //Event route (user behaviour)

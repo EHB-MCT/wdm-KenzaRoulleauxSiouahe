@@ -22,23 +22,42 @@ async function loadUserMovieStates() {
 		watched.forEach((m) => watchedIds.add(m.movieId));
 	}
 }
-globalThis.addEventListener("DOMContentLoaded", async () => {
-	loadUserMovieStates();
-	const response = await fetch("http://localhost:5000/movies?q=");
-	const movies = await response.json();
+function renderHorizontalMovies(movies) {
+	moviesContainer.innerHTML = "";
+
 	movies.forEach((movie) => {
 		const item = document.createElement("div");
 		item.classList.add("movie-card-default");
+
+		item.innerHTML = `
+			<img src="http://localhost:5000${movie.Poster}" alt="${movie.Title}" />
+			<h4>${movie.Title}</h4>
+		`;
+
 		item.addEventListener("click", () => {
 			globalThis.location.href = `movie-detail.html?id=${movie._id}`;
 		});
-		item.innerHTML = `
-      <img src="http://localhost:5000${movie.Poster}" alt="${movie.Title}" />
-      <h4>${movie.Title}</h4>
-    `;
 
 		moviesContainer.appendChild(item);
 	});
+}
+globalThis.addEventListener("DOMContentLoaded", async () => {
+	await loadUserMovieStates();
+	const uid = localStorage.getItem("uid");
+	let movies = [];
+
+	if (uid) {
+		const recRes = await fetch(`http://localhost:5000/movies/recommended?uid=${uid}`);
+		if (recRes.ok) {
+			movies = await recRes.json();
+		}
+	}
+	if (!movies || movies.length === 0) {
+		const response = await fetch("http://localhost:5000/movies?q=");
+		movies = await response.json();
+	}
+
+	renderHorizontalMovies(movies);
 });
 
 searchInput.addEventListener("input", async () => {
@@ -68,9 +87,12 @@ searchInput.addEventListener("input", async () => {
 
 	movies.forEach((movie) => {
 		const item = document.createElement("div");
+
 		const isInWatchlist = watchlistIds.has(movie._id);
 		const isWatched = watchedIds.has(movie._id);
+
 		item.classList.add("movie-card");
+
 		item.addEventListener("click", () => {
 			globalThis.location.href = `movie-detail.html?id=${movie._id}`;
 		});
