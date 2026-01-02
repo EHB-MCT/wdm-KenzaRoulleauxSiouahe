@@ -24,7 +24,7 @@ saveProfileBtn.addEventListener("click", async () => {
 	formData.append("fearLevel", fearLevel);
 	formData.append("favoriteGenres", JSON.stringify(selectedGenres));
 	formData.append("avatar", avatarFile);
-	
+
 
 	try {
 		const res = await fetch("http://localhost:5000/profile-setup", {
@@ -38,7 +38,7 @@ saveProfileBtn.addEventListener("click", async () => {
 			return;
 		}
 
-		globalThis.location.href = "profile.html";
+		globalThis.location.href = "movie.html";
 	} catch (err) {
 		console.error(err);
 		alert("Could not save profile");
