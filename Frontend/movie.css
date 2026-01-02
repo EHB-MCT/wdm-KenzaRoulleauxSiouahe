@@ -45,7 +45,7 @@
 }
 .movie-card-default:hover {
 	transform: scale(1.01);
-	cursor:pointer;
+	cursor: pointer;
 }
 .movie-card-default img {
 	width: 100%;
@@ -88,10 +88,11 @@
 	background: #fff;
 	box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
 	transition: transform 0.2s ease;
+	position: relative;
 }
-.movie-card:hover{
+.movie-card:hover {
 	transform: translateY(-2px);
-	cursor:pointer;
+	cursor: pointer;
 }
 .movie-card img {
 	width: 80px;
@@ -134,7 +135,24 @@
 .add-watchlist-btn:hover {
 	background: #a80000;
 }
+.add-watchlist-btn:disabled {
+	background: #ccc;
+	color: #666;
+	cursor: not-allowed;
+}
+.watched-badge {
+	position: absolute;
+	top: 8px;
+	left: 8px;
+	background: rgba(0, 0, 0, 0.75);
+	color: white;
+	font-size: 11px;
+	padding: 4px 6px;
+	border-radius: 6px;
+	font-weight: 700;
+	letter-spacing: 0.5px;
+}
 
-.nav-search i{
+.nav-search i {
 	color: #8b0000;
 }

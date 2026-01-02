@@ -3,7 +3,27 @@ const resultsDiv = document.getElementById("results");
 const moviesContainer = document.getElementById("moviesContainer");
 const searchHeader = document.getElementById("searchHeader");
 
+let watchlistIds = new Set();
+let watchedIds = new Set();
+
+async function loadUserMovieStates() {
+	const uid = localStorage.getItem("uid");
+	if (!uid) return;
+
+	const [watchlistRes, watchedRes] = await Promise.all([fetch(`http://localhost:5000/watchlist?uid=${uid}`), fetch(`http://localhost:5000/watched?uid=${uid}`)]);
+
+	if (watchlistRes.ok) {
+		const watchlist = await watchlistRes.json();
+		watchlist.forEach((m) => watchlistIds.add(m.movieId));
+	}
+
+	if (watchedRes.ok) {
+		const watched = await watchedRes.json();
+		watched.forEach((m) => watchedIds.add(m.movieId));
+	}
+}
 globalThis.addEventListener("DOMContentLoaded", async () => {
+	loadUserMovieStates();
 	const response = await fetch("http://localhost:5000/movies?q=");
 	const movies = await response.json();
 	movies.forEach((movie) => {
@@ -46,20 +66,32 @@ searchInput.addEventListener("input", async () => {
 
 	movies.forEach((movie) => {
 		const item = document.createElement("div");
+		const isInWatchlist = watchlistIds.has(movie._id);
+		const isWatched = watchedIds.has(movie._id);
 		item.classList.add("movie-card");
+		item.addEventListener("click", () => {
+			globalThis.location.href = `movie-detail.html?id=${movie._id}`;
+		});
 
 		item.innerHTML = `
 		<img src="http://localhost:5000${movie.Poster}" alt="${movie.Title}" />
 		<div class="movie-info">
 			<h3>${movie.Title}</h3>
 			<p>Rating: ${movie.Rating || "N/A"}</p>
-			<button class="add-watchlist-btn" data-id="${movie._id}" data-title="${movie.Title}">
-			Add to Queue
-			</button>
+			<button class="add-watchlist-btn" 
+			${isInWatchlist || isWatched ? "disabled" : ""}
+>
+			${isWatched ? "Watched" : isInWatchlist ? "In Queue" : "Add to Queue"}
+		</button>
 
 		</div>
 	`;
-
+		if (isWatched) {
+			const badge = document.createElement("div");
+			badge.classList.add("watched-badge");
+			badge.textContent = "WATCHED";
+			item.appendChild(badge);
+		}
 		resultsDiv.appendChild(item);
 
 		item.querySelector(".add-watchlist-btn").addEventListener("click", async (e) => {
