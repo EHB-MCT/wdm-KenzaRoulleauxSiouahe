@@ -47,7 +47,8 @@
 }
 
 #startMovieBtn,
-#deleteMovieBtn {
+#deleteMovieBtn,
+#addWatchlistBtn {
 	width: 70%;
 	padding: 10px;
 	font-size: 14px;
@@ -57,14 +58,16 @@
 	align-self: center;
 }
 
-#startMovieBtn {
+#startMovieBtn,
+#addWatchlistBtn {
 	background-color: #8b0000;
 	color: white;
 	font-weight: 600;
 	margin-top: 10px;
 }
 
-#startMovieBtn:hover {
+#startMovieBtn:hover,
+#addWatchlistBtn:hover  {
 	background-color: #a30000;
 }
 

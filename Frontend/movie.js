@@ -29,7 +29,9 @@ globalThis.addEventListener("DOMContentLoaded", async () => {
 	movies.forEach((movie) => {
 		const item = document.createElement("div");
 		item.classList.add("movie-card-default");
-
+		item.addEventListener("click", () => {
+			globalThis.location.href = `movie-detail.html?id=${movie._id}`;
+		});
 		item.innerHTML = `
       <img src="http://localhost:5000${movie.Poster}" alt="${movie.Title}" />
       <h4>${movie.Title}</h4>
