@@ -1,0 +1,72 @@
+#friendsList{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    max-height: 80vh;
+    overflow-y: auto;
+    padding: 10px;
+}
+.friend-card {
+	border-radius: 12px;
+	padding: 5px;
+	margin-bottom: 16px;
+	color: #fff;
+	box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+.friend-card h3 {
+	color: black;
+}
+.friend-card .header {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+}
+
+.friend-card .header img {
+	width: 30px;
+	height: 30px;
+	border-radius: 50%;
+	object-fit: cover;
+}
+
+.friend-card .tabs {
+	display: flex;
+	gap: 8px;
+	margin-top: 10px;
+}
+
+.friend-card .tabs .tab-btn {
+	flex: 1;
+	padding: 6px 8px;
+	border: none;
+	border-radius: 6px;
+	background: #333;
+	color: #fff;
+	cursor: pointer;
+	transition: background 0.2s;
+}
+
+.friend-card .tabs .tab-btn.active {
+	background: #e50914;
+}
+
+.friend-card .movies {
+	display: flex;
+	flex-wrap: wrap;
+	margin-top: 10px;
+}
+
+.friend-card .movie-poster {
+	margin: 6px;
+	cursor: pointer;
+}
+
+.friend-card .movie-poster img {
+	width: 75px;
+	border-radius: 8px;
+	transition: transform 0.2s;
+}
+
+.friend-card .movie-poster img:hover {
+	transform: scale(1.05);
+}

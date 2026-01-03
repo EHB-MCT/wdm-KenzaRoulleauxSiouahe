@@ -29,9 +29,8 @@ body {
 	font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande", "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
 }
 
-.iphone h3{
-		font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande", "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
-
+.iphone h3 {
+	font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande", "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
 }
 .iphone p {
 	margin-bottom: -3px;
@@ -93,10 +92,6 @@ body {
 	margin-bottom: 3px;
 }
 
-.nav-item.active {
-	color: #a80000;
-}
-
 .nav-search {
 	color: #fff;
 	width: 56px;
@@ -109,8 +104,12 @@ body {
 
 .nav-search i {
 	font-size: 22px;
+	color: #999;
 }
 
 .nav-search span {
 	display: none;
+}
+.nav-item.active {
+	color: #a80000;
 }

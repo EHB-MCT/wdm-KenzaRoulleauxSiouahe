@@ -55,7 +55,7 @@ async function loadFriends() {
 
 		card.innerHTML = `
       <div class="header">
-        <img src="${f.avatar || "default.png"}" />
+        <img src="${f.avatar ? `http://localhost:5000${f.avatar}` : "default.png"}" />
         <h3>${f.displayName}</h3>
       </div>
 
@@ -65,25 +65,67 @@ async function loadFriends() {
       </div>
 
       <div class="movies">
-        ${f.watchlist.map((m) => `<div class="movie" data-id="${m.movieId}">${m.title}</div>`).join("")}
+        ${f.watchlist
+					.map(
+						(m) => `
+  <div class="movie-poster" data-id="${m.movieId}">
+    <img src="http://localhost:5000${m.Poster}" alt="${m.title}" /></div>`
+					)
+					.join("")}
       </div>
     `;
 
-		card.querySelectorAll(".movie").forEach((el) => {
+		card.querySelectorAll(".movie-poster").forEach((el) => {
 			el.onclick = () => addMovieToMyWatchlist(el.dataset.id);
 		});
 
 		friendsList.appendChild(card);
+		async function addMovieToMyWatchlist(movieId) {
+			await fetch("http://localhost:5000/watchlist", {
+				method: "POST",
+				headers: { "Content-Type": "application/json" },
+				body: JSON.stringify({ uid, movieId }),
+			});
+
+			alert("Added to your watchlist");
+		}
+		card.querySelectorAll(".tab-btn").forEach((btn, i) => {
+			btn.onclick = () => {
+				card.querySelectorAll(".tab-btn").forEach((b) => b.classList.remove("active"));
+				btn.classList.add("active");
+
+				const moviesDiv = card.querySelector(".movies");
+				moviesDiv.innerHTML = "";
+
+				if (i === 0) {
+					moviesDiv.innerHTML = f.watchlist
+						.map(
+							(m) => `
+        <div class="movie-poster" data-id="${m.movieId}">
+          <img src="http://localhost:5000${m.Poster}" alt="${m.title}" />
+        </div>
+      `
+						)
+						.join("");
+				} else {
+					// Watched
+					moviesDiv.innerHTML = f.watched
+						.map(
+							(m) => `
+        <div class="movie-poster" data-id="${m.movieId}">
+          <img src="http://localhost:5000${m.Poster}" alt="${m.title}" />
+        </div>
+      `
+						)
+						.join("");
+				}
+
+				moviesDiv.querySelectorAll(".movie-poster").forEach((el) => {
+					el.onclick = () => addMovieToMyWatchlist(el.dataset.id);
+				});
+			};
+		});
 	});
 }
 
 loadFriends();
-async function addMovieToMyWatchlist(movieId) {
-	await fetch("http://localhost:5000/watchlist", {
-		method: "POST",
-		headers: { "Content-Type": "application/json" },
-		body: JSON.stringify({ uid, movieId }),
-	});
-
-	alert("Added to your watchlist");
-}
