@@ -10,6 +10,7 @@ const path = require("node:path");
 const { randomUUID } = require("node:crypto");
 const { timeStamp } = require("node:console");
 const { ObjectId } = require("mongodb");
+const { title } = require("node:process");
 
 //Credentials
 const uri = `mongodb+srv://${username}:${password}@${cluster}/${dbName}?retryWrites=true&w=majority&appName=${dbName}`;
@@ -422,7 +423,54 @@ app.get("/watched", async (req, res) => {
 		res.status(500).json({ message: "Could not add to watched" });
 	}
 });
+//Add friends
+app.post("/friends/add", async (req, res) => {
+	const { uid, friendUid } = req.body;
+	if (!uid || !friendUid) return res.status(400).json({ message: "Missing data" });
 
+	try {
+		const user = await usersCollection.findOne({ uid });
+		if (!user) return res.status(404).json({ message: "User not found" });
+
+		const alreadyAdded = user.friends?.includes(friendUid);
+		if (alreadyAdded) return res.status(400).json({ message: "Friend already added" });
+
+		await usersCollection.updateOne({ uid }, { $push: { friends: friendUid } });
+		res.json({ message: "Friend added successfully" });
+	} catch (err) {
+		console.error(err);
+		res.status(500).json({ message: "Server error" });
+	}
+});
+
+//Get friend,user by displayName
+app.get("/friend", async (req, res) => {
+	const { displayName } = req.query;
+
+	if (!displayName) return res.status(400).json({ message: "Missing display name" });
+	if (!usersCollection) return res.status(500).json({ message: "DB not connectex" });
+
+	try {
+		const user = await usersCollection.findOne({ displayName: displayName }, { projection: 0, email: 0 });
+		if (!user) return res.status(404).json({ message: "User not found" });
+
+		const watchedMovies = await client.db(dbName).collection("watched").find({ uid: user.uid }).toArray();
+
+		res.json({
+			uid: user.uid,
+			displayName: user.displayName,
+			watchlist: user.watchlist || [],
+			watched: watchedMovies.map((m) => ({
+				title: m.title,
+				scaryScore: m.scaryScore,
+				watchedAt: m.watchedAt,
+			})),
+		});
+	} catch (err) {
+		console.error(err);
+		res.status(500).json({ message: "Server error" });
+	}
+});
 //Admin - Get all users with their data
 app.get("/admin/users", async (req, res) => {
 	try {
