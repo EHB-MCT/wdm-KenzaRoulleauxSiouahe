@@ -1,38 +1,66 @@
-const role = localStorage.getItem("role");
+document.addEventListener("DOMContentLoaded", async () => {
+	const role = localStorage.getItem("role");
 
-if (role !== "admin") {
-	alert("Access denied");
-	location.href = "login.html";
-}
+	if (role !== "admin") {
+		alert("Access denied");
+		location.href = "login.html";
+	}
 
-document.getElementById("logoutBtn").addEventListener("click", () => {
-	localStorage.clear();
-	location.href = "login.html";
-});
+	const logoutBtn = document.getElementById("logoutBtn");
+	if (logoutBtn) {
+		logoutBtn.addEventListener("click", () => {
+			localStorage.clear();
+			location.href = "login.html";
+		});
+	}
 
-document.addEventListener("DOMContentLoaded", () => {
 	const usersContainer = document.getElementById("usersContainer");
+	if (!usersContainer) return console.error("No container for users");
 
 	async function loadUsers() {
 		try {
 			const res = await fetch("http://localhost:5000/admin/users");
-			const users = await res.json();
+			if (!res.ok) throw new Error("Failed to fetch users");
 
-			usersContainer.innerHTML = "";
+			const users = await res.json();
+			usersContainer.innerHTML = ""; // Clear container
+
 			users.forEach((u) => {
-				const div = document.createElement("div");
-				div.classList.add("user-card");
-				div.innerHTML = `
-        <h3>${u.displayName || "Unnamed"} (${u.email})</h3>
-        <p>Favorite Genres: ${u.favoriteGenres?.join(", ") || "None"}</p>
-        <p>Watchlist: ${u.watchlist?.map((m) => m.title).join(", ") || "Empty"}</p>
-        <p>Watched Movies: ${u.watched?.map((m) => m.title).join(", ") || "None"}</p>
-      `;
-				usersContainer.appendChild(div);
+				const card = document.createElement("div");
+				card.classList.add("admin-user-card");
+
+				card.innerHTML = `
+          <div class="card-header">
+            <h3>${u.displayName || "Unnamed"}</h3>
+            <p>${u.email}</p>
+            <button class="toggle-details-btn">Show Details</button>
+          </div>
+          <div class="card-details" style="display:none;">
+            <p><strong>Favorite Genres:</strong> ${u.favoriteGenres?.join(", ") || "None"}</p>
+            <p><strong>Watchlist:</strong> ${u.watchlist?.map((m) => m.title).join(", ") || "Empty"}</p>
+            <p><strong>Watched Movies:</strong> ${u.watched?.map((m) => m.title).join(", ") || "None"}</p>
+            <p><strong>Events:</strong> ${u.events?.map((e) => e.type).join(", ") || "No events"}</p>
+            <p><strong>Heart Rates:</strong> ${u.heartRates?.map((h) => h.data.heartRate).join(", ") || "None"}</p>
+          </div>
+        `;
+
+				const toggleBtn = card.querySelector(".toggle-details-btn");
+				const detailsDiv = card.querySelector(".card-details");
+				toggleBtn.addEventListener("click", () => {
+					if (detailsDiv.style.display === "none") {
+						detailsDiv.style.display = "block";
+						toggleBtn.textContent = "Hide Details";
+					} else {
+						detailsDiv.style.display = "none";
+						toggleBtn.textContent = "Show Details";
+					}
+				});
+
+				usersContainer.appendChild(card);
 			});
 		} catch (err) {
-			usersContainer.textContent = "Error loading users";
-			console.error(err);
+			console.error("Error loading users:", err);
+			if (usersContainer) usersContainer.textContent = "Error loading users";
 		}
 	}
 
