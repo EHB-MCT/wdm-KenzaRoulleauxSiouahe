@@ -155,7 +155,7 @@ app.post("/login", async (req, res) => {
 	if (user.password !== password) {
 		return res.status(400).json({ message: "Incorrect password" });
 	}
-	
+
 	//Check admin password
 	if (adminCode !== undefined) {
 		if (adminCode !== ADMIN_CODE) {
@@ -420,6 +420,32 @@ app.get("/watched", async (req, res) => {
 	} catch (err) {
 		console.error(err);
 		res.status(500).json({ message: "Could not add to watched" });
+	}
+});
+
+//Admin - Get all users with their data
+app.get("/admin/users", async (req, res) => {
+	try {
+		if (!usersCollection) return res.status(500).json({ message: "DB not connected" });
+
+		const users = await usersCollection.find({}, { projection: { pasword: 0 } }).toArray();
+
+		let watchedData = [];
+		try {
+			watchedData = await client.db(dbName).collection("watched").find({}).toArray();
+		} catch (err) {
+			console.warn("Watched collection missing or empty");
+		}
+
+		const usersWithWatched = users.map((u) => {
+			const userWatched = watchedData.filter((w) => w.uid === u.uid) || [];
+			return { ...u, watched: userWatched };
+		});
+
+		res.json(usersWithWatched);
+	} catch (err) {
+		console.error(err);
+		res.status(500).json({ message: "Server error" });
 	}
 });
 const PORT = 5000;
