@@ -1,4 +1,4 @@
-const uid = localStorage.getItem("uid");
+window.uid = localStorage.getItem("uid");
 const pageStartTime = Date.now();
 
 if (uid) {

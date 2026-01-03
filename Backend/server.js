@@ -95,6 +95,8 @@ app.post("/register", async (req, res) => {
 		watchlist: [],
 		watched: [],
 
+		friends: [],
+
 		createdAt: new Date(),
 	});
 	res.json({ message: "User registered successfully!", uid });
@@ -423,6 +425,33 @@ app.get("/watched", async (req, res) => {
 		res.status(500).json({ message: "Could not add to watched" });
 	}
 });
+
+//Search for user (friend)
+app.get("/users/search", async (req, res) => {
+	const { q, uid } = req.query;
+
+	if (!q) return res.json([]);
+
+	const users = await usersCollection
+		.find(
+			{
+				displayName: { $regex: q, $options: "i" },
+				uid: { $ne: uid },
+			},
+			{
+				projection: {
+					uid: 1,
+					displayName: 1,
+					avatar: 1,
+				},
+			}
+		)
+		.limit(10)
+		.toArray();
+
+	res.json(users);
+});
+
 //Add friends
 app.post("/friends/add", async (req, res) => {
 	const { uid, friendUid } = req.body;
@@ -444,33 +473,51 @@ app.post("/friends/add", async (req, res) => {
 });
 
 //Get friend,user by displayName
-app.get("/friend", async (req, res) => {
-	const { displayName } = req.query;
+app.get("/friends", async (req, res) => {
+	const { uid } = req.query;
 
-	if (!displayName) return res.status(400).json({ message: "Missing display name" });
-	if (!usersCollection) return res.status(500).json({ message: "DB not connectex" });
+	if (!uid) return res.status(400).json({ message: "Missing uid" });
+	if (!usersCollection) return res.status(500).json({ message: "DB not connected" });
 
 	try {
-		const user = await usersCollection.findOne({ displayName: displayName }, { projection: 0, email: 0 });
+		const user = await usersCollection.findOne({ uid });
 		if (!user) return res.status(404).json({ message: "User not found" });
 
-		const watchedMovies = await client.db(dbName).collection("watched").find({ uid: user.uid }).toArray();
+		const friendsUids = user.friends || [];
 
-		res.json({
-			uid: user.uid,
-			displayName: user.displayName,
-			watchlist: user.watchlist || [],
-			watched: watchedMovies.map((m) => ({
-				title: m.title,
-				scaryScore: m.scaryScore,
-				watchedAt: m.watchedAt,
-			})),
-		});
+		const friends = await usersCollection
+			.find(
+				{ uid: { $in: friendsUids } },
+				{
+					projection: {
+						password: 0,
+						email: 0,
+					},
+				}
+			)
+			.toArray();
+
+		const watchedData = await client
+			.db(dbName)
+			.collection("watched")
+			.find({ uid: { $in: friendsUids } })
+			.toArray();
+
+		const friendsWithData = friends.map((f) => ({
+			uid: f.uid,
+			displayName: f.displayName,
+			avatar: f.avatar,
+			watchlist: f.watchlist || [],
+			watched: watchedData.filter((w) => w.uid === f.uid),
+		}));
+
+		res.json(friendsWithData);
 	} catch (err) {
 		console.error(err);
 		res.status(500).json({ message: "Server error" });
 	}
 });
+
 //Admin - Get all users with their data
 app.get("/admin/users", async (req, res) => {
 	try {
