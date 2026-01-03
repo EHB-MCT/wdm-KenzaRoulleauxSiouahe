@@ -2,7 +2,8 @@ const saveProfileBtn = document.getElementById("saveProfileBtn");
 const loggedUser = localStorage.getItem("loggedUser");
 const uid = localStorage.getItem("uid");
 
-if (!loggedUser) {
+if (!loggedUser || !uid) {
+	alert("You must be logged in first");
 	globalThis.location.href = "login.html";
 }
 
@@ -24,7 +25,6 @@ saveProfileBtn.addEventListener("click", async () => {
 	formData.append("fearLevel", fearLevel);
 	formData.append("favoriteGenres", JSON.stringify(selectedGenres));
 	formData.append("avatar", avatarFile);
-
 
 	try {
 		const res = await fetch("http://localhost:5000/profile-setup", {
