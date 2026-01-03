@@ -23,7 +23,8 @@ document.addEventListener("DOMContentLoaded", async () => {
 			if (!res.ok) throw new Error("Failed to fetch users");
 
 			const users = await res.json();
-			usersContainer.innerHTML = ""; // Clear container
+			// Clear container
+			usersContainer.innerHTML = "";
 
 			users.forEach((u) => {
 				const card = document.createElement("div");
@@ -37,7 +38,7 @@ document.addEventListener("DOMContentLoaded", async () => {
           </div>
           <div class="card-details" style="display:none;">
             <p><strong>Favorite Genres:</strong> ${u.favoriteGenres?.join(", ") || "None"}</p>
-            <p><strong>Watchlist:</strong> ${u.watchlist?.map((m) => m.title).join(", ") || "Empty"}</p>
+            <p><strong>Watchlist:</strong>${u.watchlist?.length ? u.watchlist.map((m) => m.title || "Empty").join(", ") : "Empty"}</p>
             <p><strong>Watched Movies:</strong> ${u.watched?.map((m) => m.title).join(", ") || "None"}</p>
             <p><strong>Events:</strong> ${u.events?.map((e) => e.type).join(", ") || "No events"}</p>
             <p><strong>Heart Rates:</strong> ${u.heartRates?.map((h) => h.data.heartRate).join(", ") || "None"}</p>
