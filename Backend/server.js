@@ -133,6 +133,7 @@ app.post("/profile-setup", public.single("avatar"), async (req, res) => {
 });
 
 //Login route
+const ADMIN_CODE = process.env.ADMIN_CODE || "CODE";
 app.post("/login", async (req, res) => {
 	const { email, password, adminCode } = req.body;
 
@@ -154,9 +155,17 @@ app.post("/login", async (req, res) => {
 	if (user.password !== password) {
 		return res.status(400).json({ message: "Incorrect password" });
 	}
-
+	
+	//Check admin password
+	if (adminCode !== undefined) {
+		if (adminCode !== ADMIN_CODE) {
+			return res.status(403).json({ message: "Wrong admin code" });
+		} else {
+			return res.json({ message: "Admin login successful!", uid: user.uid, role: "admin" });
+		}
+	}
 	let role = "user";
-	if (adminCode === "ADMIN_CODE") {
+	if (adminCode && adminCode === ADMIN_CODE) {
 		role = "admin";
 	}
 
