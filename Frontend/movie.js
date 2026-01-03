@@ -3,6 +3,7 @@ const resultsDiv = document.getElementById("results");
 const moviesContainer = document.getElementById("moviesContainer");
 const searchHeader = document.getElementById("searchHeader");
 const recommendationTitle = document.getElementById("recommendationTitle");
+const friendsMoviesContainer = document.getElementById("friendsMovies");
 
 let watchlistIds = new Set();
 let watchedIds = new Set();
@@ -64,6 +65,7 @@ globalThis.addEventListener("DOMContentLoaded", async () => {
 	recommendationTitle.style.display = "block";
 
 	renderHorizontalMovies(movies);
+	await loadFriendsMovies();
 });
 
 searchInput.addEventListener("input", async () => {
@@ -150,3 +152,53 @@ searchInput.addEventListener("input", async () => {
 		});
 	});
 });
+
+async function loadFriendsMovies() {
+	const uid = localStorage.getItem("uid");
+	if (!uid) return;
+
+	try {
+		const res = await fetch(`http://localhost:5000/friends?uid=${uid}`);
+		if (!res.ok) return;
+		const friends = await res.json();
+
+		let movies = [];
+		friends.forEach((friend) => {
+			if (friend.watchlist) {
+				friend.watchlist.forEach((m) => movies.push(m));
+			}
+		});
+
+		const uniqueMovies = [...new Map(movies.map((m) => [m.movieId, m])).values()];
+
+		const moviesToShow = uniqueMovies.filter((m) => !watchlistIds.has(m.movieId));
+
+		renderFriendsMovies(moviesToShow);
+	} catch (err) {
+		console.error("Failed to load friends movies:", err);
+	}
+}
+
+function renderFriendsMovies(movies) {
+	friendsMoviesContainer.innerHTML = "";
+	if (movies.length === 0) {
+		friendsMoviesContainer.innerHTML = "<p>No movies from friends yet.</p>";
+		return;
+	}
+	const limitedMovies = movies.slice(0, 20);
+	limitedMovies.forEach((movie) => {
+		const item = document.createElement("div");
+		item.classList.add("friend-movie-card");
+
+		item.innerHTML = `
+			<img src="http://localhost:5000${movie.Poster}" alt="${movie.title}" />
+			<h4>${movie.title}</h4>
+		`;
+
+		item.addEventListener("click", () => {
+			globalThis.location.href = `movie-detail.html?id=${movie.movieId}`;
+		});
+
+		friendsMoviesContainer.appendChild(item);
+	});
+}
