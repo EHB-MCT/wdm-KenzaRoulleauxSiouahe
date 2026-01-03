@@ -539,16 +539,23 @@ app.get("/admin/users", async (req, res) => {
 			console.error(err, "Events collection missing or empty");
 		}
 
-		const usersWithData = users.map((u) => {
-			const userWatched = watchedData.filter((w) => w.uid === u.uid);
-			const userEvents = eventsData.filter((e) => e.uid === u.uid);
+		const usersWithData = await Promise.all(
+			users.map(async (u) => {
+				const userWatched = watchedData.filter((w) => w.uid === u.uid);
+				const userEvents = eventsData.filter((e) => e.uid === u.uid);
+				let friends = [];
+				if (u.friends?.length > 0) {
+					friends = await usersCollection.find({ uid: { $in: u.friends } }, { projection: { uid: 1, displayName: 1, avatar: 1 } }).toArray();
+				}
 
-			return {
-				...u,
-				watched: userWatched || [],
-				events: userEvents || [],
-			};
-		});
+				return {
+					...u,
+					watched: userWatched || [],
+					events: userEvents || [],
+					friends: friends || [],
+				};
+			})
+		);
 
 		res.json(usersWithData);
 	} catch (err) {
