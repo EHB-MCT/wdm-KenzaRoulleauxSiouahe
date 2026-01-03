@@ -337,7 +337,7 @@ app.post("/watchlist", async (req, res) => {
 		const { ObjectId } = require("mongodb");
 		const movie = await moviesCollection.findOne({ _id: new ObjectId(movieId) });
 		if (!movie) return res.status(404).json({ message: "Movie not found" });
-		await usersCollection.updateOne({ uid }, { $push: { watchlist: { movieId, title, Poster: movie.Poster, addedAt: new Date() } } });
+		await usersCollection.updateOne({ uid }, { $push: { watchlist: { movieId, title: movie.Title, Poster: movie.Poster, addedAt: new Date() } } });
 
 		res.json({ message: "Movie added to Want to Watch" });
 	} catch (err) {
@@ -428,21 +428,34 @@ app.get("/admin/users", async (req, res) => {
 	try {
 		if (!usersCollection) return res.status(500).json({ message: "DB not connected" });
 
-		const users = await usersCollection.find({}, { projection: { pasword: 0 } }).toArray();
+		const users = await usersCollection.find({}, { projection: { password: 0 } }).toArray();
 
 		let watchedData = [];
 		try {
 			watchedData = await client.db(dbName).collection("watched").find({}).toArray();
 		} catch (err) {
-			console.warn("Watched collection missing or empty");
+			console.error(err, "Watched collection missing or empty");
 		}
 
-		const usersWithWatched = users.map((u) => {
-			const userWatched = watchedData.filter((w) => w.uid === u.uid) || [];
-			return { ...u, watched: userWatched };
+		let eventsData = [];
+		try {
+			eventsData = await client.db(dbName).collection("events").find({}).toArray();
+		} catch (err) {
+			console.error(err, "Events collection missing or empty");
+		}
+
+		const usersWithData = users.map((u) => {
+			const userWatched = watchedData.filter((w) => w.uid === u.uid);
+			const userEvents = eventsData.filter((e) => e.uid === u.uid);
+
+			return {
+				...u,
+				watched: userWatched || [],
+				events: userEvents || [],
+			};
 		});
 
-		res.json(usersWithWatched);
+		res.json(usersWithData);
 	} catch (err) {
 		console.error(err);
 		res.status(500).json({ message: "Server error" });

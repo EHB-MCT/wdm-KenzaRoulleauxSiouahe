@@ -86,7 +86,7 @@ deleteBtn?.addEventListener("click", async () => {
 	if (!confirmDelete) return;
 
 	try {
-		const res = await fetch(`https://localhost:5000/watchlist,uid=${uid}&movieId=${movieId}`, { method: "DELETE" });
+		const res = await fetch(`http://localhost:5000/watchlist?uid=${uid}&movieId=${movieId}`, { method: "DELETE" });
 		if (!res.ok) throw new Error("Failed to delete");
 		location.reload();
 	} catch (err) {
