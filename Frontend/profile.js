@@ -3,6 +3,10 @@ document.addEventListener("DOMContentLoaded", () => {
 	const sections = document.querySelectorAll(".movies-section");
 	const email = localStorage.getItem("loggedUser");
 
+	if (!localStorage.getItem("uid")) {
+		location.href = "login.html";
+	}
+
 	if (!email) {
 		globalThis.location.href = "login.html";
 	}
@@ -110,4 +114,12 @@ document.addEventListener("DOMContentLoaded", () => {
 	}
 
 	loadWatchedList();
+	const logoutBtn = document.getElementById("logoutBtn");
+
+	if (logoutBtn) {
+		logoutBtn.addEventListener("click", () => {
+			localStorage.clear();
+			location.href = "login.html";
+		});
+	}
 });

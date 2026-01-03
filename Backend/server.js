@@ -134,7 +134,8 @@ app.post("/profile-setup", public.single("avatar"), async (req, res) => {
 
 //Login route
 app.post("/login", async (req, res) => {
-	const { email, password } = req.body;
+	const { email, password, adminCode } = req.body;
+
 	if (!usersCollection) {
 		return res.status(500).json({ message: "Database not connected yet" });
 	}
@@ -154,7 +155,16 @@ app.post("/login", async (req, res) => {
 		return res.status(400).json({ message: "Incorrect password" });
 	}
 
-	res.json({ message: "Login successful!" });
+	let role = "user";
+	if (adminCode === "ADMIN_CODE") {
+		role = "admin";
+	}
+
+	res.json({
+		message: "Login successful!",
+		uid: user.uid,
+		role,
+	});
 });
 
 //Get profile info

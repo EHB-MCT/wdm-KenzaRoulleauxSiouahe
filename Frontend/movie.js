@@ -7,6 +7,10 @@ const recommendationTitle = document.getElementById("recommendationTitle");
 let watchlistIds = new Set();
 let watchedIds = new Set();
 
+if (!localStorage.getItem("uid")) {
+	location.href = "login.html";
+}
+
 async function loadUserMovieStates() {
 	const uid = localStorage.getItem("uid");
 	if (!uid) return;

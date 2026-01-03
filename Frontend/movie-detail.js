@@ -7,6 +7,10 @@ const deleteBtn = document.getElementById("deleteMovieBtn");
 const addBtn = document.getElementById("addWatchlistBtn");
 const backBtn = document.getElementById("backBtn");
 
+if (!localStorage.getItem("uid")) {
+	location.href = "login.html";
+}
+
 async function loadMovie() {
 	try {
 		const res = await fetch(`http://localhost:5000/movies/${movieId}`);
