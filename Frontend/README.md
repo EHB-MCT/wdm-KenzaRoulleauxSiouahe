@@ -43,9 +43,17 @@ This project will collect both explicit and implicit data from the user:
 
 # Running the project
 
-- ...
-- ...
-- ...
+- npm install
+- run "node server.js" in terminal
+- open "welcome page" in front end
+- make an account and browse movies
+
+For admin:
+- login with email : admin@gmail.com
+- password: "adminpassword"
+- admin paswword "SECRETCODE"
+- browse the user data
+
 
 # Sources frontend:
 
