@@ -1,0 +1,194 @@
+
+.iphone input#searchInput {
+	width: 100%;
+	padding: 6px 10px;
+	font-size: 14px;
+	margin-bottom: 15px;
+	border-radius: 6px;
+	border: 1px solid #ccc;
+	box-sizing: border-box;
+}
+
+#moviesContainer {
+	display: flex;
+	overflow-x: auto;
+	gap: 10px;
+	padding-bottom: 10px;
+	scroll-behavior: smooth;
+}
+
+#moviesContainer::-webkit-scrollbar {
+	height: 6px;
+}
+
+#moviesContainer::-webkit-scrollbar-thumb {
+	background-color: #888;
+	border-radius: 4px;
+}
+
+.movie-card-default {
+	flex: 0 0 auto;
+	width: 95px;
+	text-align: center;
+	background: #fff;
+	border-radius: 10px;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+	padding-bottom: 5px;
+	transition: transform 0.2s ease;
+}
+.movie-card-default:hover {
+	transform: scale(1.01);
+	cursor: pointer;
+}
+.movie-card-default img {
+	width: 100%;
+	height: 140px;
+	object-fit: cover;
+	border-radius: 6px;
+}
+
+.movie-card-default h4 {
+	font-size: 12px;
+	margin: 6px 4px 0;
+	line-height: 1.2;
+	font-weight: 600;
+	color: #111;
+}
+
+#results {
+	flex: 1;
+	overflow-y: auto;
+	margin-top: 20px;
+	padding-right: 5px;
+}
+
+#results ::-webkit-scrollbar {
+	width: 4px;
+}
+
+#results ::-webkit-scrollbar-thumb {
+	background-color: #aaa;
+	border-radius: 4px;
+}
+
+.movie-card {
+	display: flex;
+	gap: 12px;
+	margin-bottom: 14px;
+	padding: 10px;
+	border-radius: 12px;
+	background: #fff;
+	box-shadow: 0 4px 14px rgba(0, 0, 0, 0.08);
+	transition: transform 0.2s ease;
+	position: relative;
+}
+.movie-card:hover {
+	transform: translateY(-2px);
+	cursor: pointer;
+}
+.movie-card img {
+	width: 80px;
+	height: 120px;
+	object-fit: cover;
+	border-radius: 8px;
+	flex-shrink: 0;
+}
+
+.movie-info {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.movie-info h3 {
+	margin: 0 0 3px 0;
+	font-size: 15px;
+}
+
+.movie-info p {
+	margin: 1px 0;
+	font-size: 15px;
+	color: #666;
+}
+.add-watchlist-btn {
+	align-self: flex-start;
+	margin-top: 6px;
+	padding: 6px 10px;
+	font-size: 13px;
+	border-radius: 6px;
+	border: none;
+	background: #8b0000;
+	color: white;
+	font-weight: 600;
+	cursor: pointer;
+	transition: background 0.2s ease;
+}
+
+.add-watchlist-btn:hover {
+	background: #a80000;
+}
+.add-watchlist-btn:disabled {
+	background: #ccc;
+	color: #666;
+	cursor: not-allowed;
+}
+.watched-badge {
+	position: absolute;
+	top: 8px;
+	left: 8px;
+	background: rgba(0, 0, 0, 0.75);
+	color: white;
+	font-size: 11px;
+	padding: 4px 6px;
+	border-radius: 6px;
+	font-weight: 700;
+	letter-spacing: 0.5px;
+}
+#friendsMovies {
+	display: flex;
+	overflow-x: auto;
+	gap: 10px;
+	padding-bottom: 10px;
+	margin-top: 10px;
+	scroll-behavior: smooth;
+}
+
+#friendsMovies::-webkit-scrollbar {
+	height: 6px;
+}
+
+#friendsMovies::-webkit-scrollbar-thumb {
+	background-color: #888;
+	border-radius: 4px;
+}
+
+.friend-movie-card {
+	flex: 0 0 auto;
+	width: 95px; 
+	text-align: center;
+	background: #fff;
+	border-radius: 10px;
+	box-shadow: 0 3px 10px rgba(0, 0, 0, 0.08);
+	padding-bottom: 5px;
+	transition: transform 0.2s ease;
+}
+
+.friend-movie-card:hover {
+	transform: scale(1.05);
+	cursor: pointer;
+}
+
+.friend-movie-card img {
+	width: 100%;
+	height: 120px;
+	object-fit: cover;
+	border-radius: 6px;
+}
+
+.friend-movie-card h4 {
+	font-size: 11px;
+	margin: 4px 2px 0;
+	line-height: 1.2;
+	font-weight: 600;
+	color: #111;
+}

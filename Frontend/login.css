@@ -1,0 +1,19 @@
+.login-buttons {
+	display: flex;
+	justify-content: space-between;
+	gap: 12px;
+	margin-top: 20px;
+	width: 100%;
+}
+
+.start-btn:hover {
+	background-color: rgb(77, 0, 0);
+}
+
+.casual-btn:hover {
+	background-color: #777;
+}
+
+#adminCode {
+	margin-bottom: 20px;
+}

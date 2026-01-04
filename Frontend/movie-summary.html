@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Movie Summary</title>
+		<link rel="stylesheet" href="style.css" />
+		<link rel="stylesheet" href="profile.css" />
+		<link rel="stylesheet" href="movie-summary.css" />
+	</head>
+	<body>
+		<div class="iphone">
+			<h2 id="summaryTitle">Movie Summary</h2>
+			<img id="summaryPoster" />
+			<p id="bpmSummary"></p>
+			<div id="ratinSelection">
+				<h3>Rate the movie</h3>
+				<label>Fear <input type="number" min="1" max="10" id="fearRating" /></label>
+				<label>Story <input type="number" min="1" max="10" id="storyRating" /></label>
+				<button id="submitRatingBtn">Submit</button>
+			</div>
+		</div>
+		<script src="track.js"></script>
+		<script src="summary.js"></script>
+	</body>
+</html>

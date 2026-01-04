@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Watching movie</title>
+		<link rel="stylesheet" href="style.css" />
+		<link rel="stylesheet" href="watch-movie.css" />
+	</head>
+	<body>
+		<div class="iphone">
+			<header class="watch-header">
+				<h3 id="nowWatching">Now Watching</h3>
+			</header>
+			<img id="watchPoster" class="watch-poster" />
+
+			<div class="heartRate-container">
+				<canvas id="heartRateCanvas"></canvas>
+				<div id="bpmLabel">-- BPM</div>
+			</div>
+			<div class="watch-controls">
+				<button id="pauseBtn">Pause</button>
+				<button id="finishBtn">Finished Movie</button>
+				<button id="stopBtn">Stop Movie</button>
+			</div>
+		</div>
+		<script src="heartRate.js"></script>
+		<script src="watch-movie.js"></script>
+	</body>
+</html>
