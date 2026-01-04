@@ -1,0 +1,109 @@
+# Sources backend:
+- A Complete Guide to Implementing a File Upload Function in Node.js with Express and Multer NPM. (n.d.). Medium. https://medium.com/@nurulislamrimon/a-complete-guide-to-implementing-a-file-upload-function-in-node-js-with-express-and-multer-npm-0f6e2e2d98cd
+
+used to implement file upload with multer in server.js
+
+- Amm, T. (2025, August 1). What Is a .env File and Why Should You Use It? DEV Community. https://dev.to/talaamm/what-is-a-env-file-and-why-should-you-use-it-599o
+
+used for the .env file for the config.js
+
+- Bezkoder. (2024, February 4). How to upload/store images in MongoDB using Node.js, Express & Multer - BezKoder. BezKoder. https://www.bezkoder.com/node-js-upload-store-images-mongodb/
+
+used for img store in mongoDB
+
+- https://www.crio.do/blog/how-to-create-guid-and-uuid-in-javascript-2025-criodo/
+
+helped for the UID of users
+
+- Cross-Origin Resource Sharing (CORS) - HTTP | MDN. (n.d.). https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CORS
+
+used to link backend to frontend
+
+- Date - JavaScript | MDN. (n.d.). https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date
+
+used for the 'Date' property
+
+- Date.prototype.toLocaleString() - JavaScript | MDN. (n.d.). https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleString
+
+used to convert default time and date to local time and date
+
+- Express. (n.d.). https://expressjs.com/en/starter/hello-world.html
+
+starter for 'express'
+
+- Express routing. (n.d.). https://expressjs.com/en/guide/routing.html
+
+routing starter for 'express'
+
+- GeeksforGeeks. (2025a, July 23). Difference between res.send() and res.json() in Express.js? GeeksforGeeks. https://www.geeksforgeeks.org/node-js/difference-between-res-send-and-res-json-in-express-js/
+
+used for 'res.json'
+
+- GeeksforGeeks. (2025b, July 28). JavaScript comparison operators. GeeksforGeeks. https://www.geeksforgeeks.org/javascript/javascript-comparison-operators/
+
+comparison operator used in movie.js,
+
+- GeeksforGeeks. (2025c, July 23). How to Perform Text Search in MongoDB using Node.js? GeeksforGeeks. https://www.geeksforgeeks.org/mongodb/how-to-perform-text-search-in-mongodb-using-node-js/
+
+used to help with he search query in MongoDB
+
+- Crypto: randomUUID() method - Web APIs | MDN. (n.d.). https://developer.mozilla.org/en-US/docs/Web/API/Crypto/randomUUID
+
+used for the random UUID for each users
+
+- HowTo generate a GUID/UUID in JavaScript: Best Methods & Examples. (n.d.). JavaScript Development Space. https://jsdev.space/howto/generate-uuid-js/
+
+used to understend the UUID and implement it in my code 
+
+- HTTP authentication - HTTP | MDN. (n.d.). https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Authentication
+
+help with everything thats identifications 
+
+- HTTP status Code Constants in JavaScript: How to access them (Beyond XMLHttpRequest). (2025, November 14). Xjavascript. https://www.xjavascript.com/blog/accessing-http-status-code-constants/
+
+used for the error status codes
+
+- Islam Rimon, N. (2025, March 1). A Complete Guide to Implementing a File Upload Function in Node.js with Express and Multer NPM. Medium. https://medium.com/@nurulislamrimon/a-complete-guide-to-implementing-a-file-upload-function-in-node-js-with-express-and-multer-npm-0f6e2e2d98cd
+
+used for 'Multer' for image upload for the profile pictures
+
+- Jamaludin, D. (n.d.-a). Build a RESTful API using Node.js, Express.js, MongoDB, and Mongoose (2025 edition). Djamware - Fullstack Programming Articles. https://www.djamware.com/post/58a91cdf80aca748640ce353/nodejs-expressjs-mongoosejs-mongodb-easy-build-rest-api
+
+used when creating my routes in server.js
+
+- Jamaludin, D. (n.d.). Build a Secure REST API with Node.js, Express, MongoDB, and JWT. Djamware - Fullstack Programming Articles. https://www.djamware.com/post/6826fc85f9614f0a093d9cba/build-a-secure-rest-api-with-nodejs-express-mongodb-and-jwt
+
+used for building the REST API with Node.js, Express and MongoDB in server.js
+
+- JavaScript Backend Cheat Sheet: A Quick Reference Guide for Building Robust Backends with JavaScript. (n.d.). https://www.webdevtutor.net/blog/javascript-backend-cheat-sheet
+
+cheat sheet for backend routes and other used in server.js
+
+- Node.js — An introduction to the npm package manager. (n.d.). https://nodejs.org/en/learn/getting-started/an-introduction-to-the-npm-package-manager
+
+node starter
+
+- OpenClassrooms. (n.d.). OpenClassrooms. https://openclassrooms.com/en/courses/5614116-go-full-stack-with-node-js-express-and-mongodb/5656206-create-a-post-route
+
+used to create my 'POST' route
+
+- Team, M. D. (n.d.-a). $regex. Database Manual - MongoDB Docs. https://www.mongodb.com/docs/manual/reference/operator/query/regex/
+
+used for pattern matching stringsin queries
+
+- Team, M. D. (n.d.-b). $set (update operator). Database Manual - MongoDB Docs. https://www.mongodb.com/docs/manual/reference/operator/update/set/?msockid=250a495d4a65692b05435f904b336897
+
+used for the '$set' update operator in MongoDB
+
+- Team, M. D. (n.d.-c). Connection strings. Database Manual - MongoDB Docs. https://www.mongodb.com/docs/manual/reference/connection-string/?deployment-type=atlas&interface-atlas-only=atlas-cli&msockid=250a495d4a65692b05435f904b336897
+
+connection string for MongoDB
+
+- Transcoding. (2024, February 3). Taming Timezones: JavaScript UTC to Local Time conversion. Transcoding. https://transcoding.org/javascript/convert-utc-to-local-time/
+
+used to convert default time and date to local time and date
+
+- Working with JSON - Learn web development | MDN. (n.d.). https://developer.mozilla.org/en-US/docs/Learn_web_development/Core/Scripting/JSON
+
+
+used to send data between backend and frontend

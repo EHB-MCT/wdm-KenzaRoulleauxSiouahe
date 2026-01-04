@@ -1,0 +1,91 @@
+.iphone {
+	background: linear-gradient(180deg, #120000, #1c0000);
+	color: white;
+	padding: 16px;
+	box-sizing: border-box;
+}
+
+#summaryTitle {
+	text-align: center;
+	font-size: 18px;
+	font-weight: 600;
+	margin-bottom: 14px;
+}
+
+#summaryPoster {
+	display: block;
+	margin: 0 auto 14px auto;
+	width: 120px;
+	height: 180px;
+	object-fit: cover;
+	border-radius: 8px;
+	box-shadow: 0 6px 18px rgba(0, 0, 0, 0.6);
+}
+
+#bpmSummary {
+	text-align: center;
+	background-color: rgb(35, 12, 12);
+	border-radius: 10px;
+	font-size: 16px;
+	line-height: 1.6;
+	border: 3px solid #8b0000;
+	white-space: pre-line;
+	margin-bottom: 6px;
+	width: 280px;
+	height: 100px;
+	margin: 10px auto;
+}
+#heartRateChart {
+	margin: 10px auto;
+	width: 280px;
+	height: 100px;
+	border: 2px solid #8b0000;
+	border-radius: 8px;
+	background: #230c0c;
+}
+#ratinSelection {
+	border-radius: 10px;
+	padding: 14px;
+	align-items: center;
+}
+
+#ratingSelection h3 {
+	margin: 0 0 12px 0;
+	font-size: 15px;
+	text-align: center;
+	color: #ffb3b3;
+}
+
+#ratingSelection label {
+	display: flex;
+	justify-content: space-between;
+	align-self: center;
+	margin-bottom: 10px;
+	font-size: 14px;
+}
+#ratingSelection input {
+	width: 60px;
+	padding: 4px;
+	border-radius: 6px;
+	border: none;
+	text-align: center;
+	font-size: 14px;
+}
+
+#submitRatingBtn {
+	margin-top: 12px;
+	width: 70%;
+	padding: 12px;
+	background: #8b0000;
+	border: none;
+	border-radius: 8px;
+	color: white;
+	font-size: 15px;
+	font-weight: 600;
+	cursor: pointer;
+	transition: background 0.2s ease;
+}
+
+#submitRatingBtn:hover {
+	background: #a80000;
+}

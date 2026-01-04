@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Movie-page</title>
+		<link rel="stylesheet" href="style.css" />
+		<link rel="stylesheet" href="movie.css" />
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+	</head>
+	<body>
+		<div class="iphone">
+			<h1 id="searchHeader">Find your next horror watch</h1>
+			<input type="text" id="searchInput" placeholder="Search for your next watch..." />
+			<h3 id="recommendationTitle">Some recommendations</h3>
+			<div id="moviesContainer" class="horizontal-scroll"></div>
+			<h3 id="friendsRecommendationTitle">What your friends are watching</h3>
+			<div id="friendsMovies" class="movies-container"></div>
+			<div id="results"></div>
+			<nav class="bottom-nav">
+				<a href="friends.html" class="nav-item">
+					<i class="fa-solid fa-users"></i>
+					<span>Friends</span>
+				</a>
+
+				<a href="movie.html" class="nav-item nav-search active">
+					<i class="fa-solid fa-magnifying-glass"></i>
+				</a>
+
+				<a href="profile.html" class="nav-item">
+					<i class="fa-solid fa-user"></i>
+					<span>Profile</span>
+				</a>
+			</nav>
+		</div>
+		<script src="movie.js"></script>
+		<script src="track.js"></script>
+		<script src="heartRate.js"></script>
+	</body>
+</html>

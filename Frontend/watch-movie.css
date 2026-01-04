@@ -1,0 +1,70 @@
+.iphone {
+	background-color: #580909;
+}
+h3 {
+	color: #ffffff;
+}
+.watch-header {
+	text-align: center;
+	padding: 12px;
+	font-size: 16px;
+	border-bottom: 1px solid #ffffff;
+}
+.watch-poster {
+	width: 120px;
+	height: 180px;
+	object-fit: cover;
+	border-radius: 8px;
+	margin: 15px auto 10px;
+	box-shadow: 0 4px 12px rgba(199, 184, 184, 0.4);
+}
+.heartRate-container {
+	position: relative;
+	margin: 10px;
+	background: #580909;
+	border-radius: 8px;
+	padding: 8px;
+}
+
+#heartRateCanvas {
+	width: 100%;
+	height: 200px;
+}
+#bpmLabel {
+	position: absolute;
+	top: 8px;
+	right: 12px;
+	font-size: 14px;
+	color: #ffffff;
+	font-weight: 600;
+}
+
+.watch-controls {
+	display: flex;
+	padding: 15px;
+	gap: 10px;
+}
+
+.watch-controls button {
+	flex: 1;
+	padding: 12px;
+	border-radius: 6px;
+	border: none;
+	font-size: 14px;
+	cursor: pointer;
+}
+
+#pauseBtn {
+	background: #444;
+	color: white;
+}
+
+#finishBtn {
+	background: #8b0000;
+	color: white;
+}
+
+#stopBtn {
+	background: #ffffff;
+	color: rgb(255, 0, 0);
+}

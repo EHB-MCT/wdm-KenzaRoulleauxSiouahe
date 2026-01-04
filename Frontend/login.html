@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Log in page</title>
+		<link rel="stylesheet" href="style.css" />
+		<link rel="stylesheet" href="login.css" />
+	</head>
+	<body>
+		<div class="iphone">
+			<h1>Log in</h1>
+			<input type="text" id="username" placeholder="Email" />
+			<input type="password" id="password" placeholder="Password" />
+			<input id="adminCode" type="password" placeholder="Admin Code (admins only)" />
+
+			<div class="login-buttons">
+				<button id="loginBtn" class="start-btn">Connect</button>
+				<button onclick="window.location.href='homepage.html'" class="casual-btn">Back</button>
+			</div>
+		</div>
+	</body>
+	<script src="login.js"></script>
+	<script src="track.js"></script>
+</html>
