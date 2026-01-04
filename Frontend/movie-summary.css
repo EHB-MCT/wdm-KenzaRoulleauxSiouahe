@@ -23,21 +23,30 @@
 }
 
 #bpmSummary {
-    text-align: center;
-    background-color: rgb(35, 12, 12);
+	text-align: center;
+	background-color: rgb(35, 12, 12);
 	border-radius: 10px;
-	padding: 12px;
-	font-size: 18px;
+	font-size: 16px;
 	line-height: 1.6;
 	border: 3px solid #8b0000;
 	white-space: pre-line;
+	margin-bottom: 6px;
+	width: 280px;
+	height: 100px;
+	margin: 10px auto;
 }
-
-#ratingSelection {
-	background: rgba(255, 255, 255, 0.06);
+#heartRateChart {
+	margin: 10px auto;
+	width: 280px;
+	height: 100px;
+	border: 2px solid #8b0000;
+	border-radius: 8px;
+	background: #230c0c;
+}
+#ratinSelection {
 	border-radius: 10px;
 	padding: 14px;
-    align-items: center;
+	align-items: center;
 }
 
 #ratingSelection h3 {
