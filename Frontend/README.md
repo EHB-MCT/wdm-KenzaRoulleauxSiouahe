@@ -57,17 +57,53 @@ input element used in home.html
 
 email input specifics
 
-- - HTML | MDN. (n.d.). https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input/file
+- HTML | MDN. (n.d.). https://developer.mozilla.org/en-US/docs/Web/HTML/Reference/Elements/input/file
 
 used to upload image from pc for profile pic in profile-setup.html
 
+- Alam, A. (2025, November 11). JavaScript Fetch API. Intellipaat. https://intellipaat.com/blog/fetch-api-javascript/
+
+used for the fetch post API in multiple js files
+
+- Array.prototype.filter() - JavaScript | MDN. (n.d.). https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/filter
+
+".filter" method used in multiple js files
+
+- Array.prototype.slice() - JavaScript | MDN. (n.d.). https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/slice
+
+".slice" method used in multiple js files
+
+- Array.prototype.sort() - JavaScript | MDN. (n.d.). https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/sort
+
+".sort" method used in multiple js files
+
 - Bodnar, J. (n.d.). JavaScript appendChild Guide: Learn how to add DOM elements easily. https://zetcode.com/dom/element-appendchild/
 
-property used in movie.js,
+property used in multiple js files
 
 - Date.prototype.toLocaleTimeString() - JavaScript | MDN. (n.d.). https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Date/toLocaleTimeString
 
 'toLocalTimeString'used in main.js to get the time
+
+- Document: querySelector() method - Web APIs | MDN. (n.d.). https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelector
+
+"document.querySelector()" method used in multiple js files
+
+- Document: querySelectorAll() method - Web APIs | MDN. (n.d.). https://developer.mozilla.org/en-US/docs/Web/API/Document/querySelectorAll
+
+"document.querySelectorAll()" method used in multiple js files
+
+- DOM Manipulation cheat sheet. (n.d.). DevSheets. https://www.devsheets.io/sheets/dom-manipulation
+
+DOM manipulation cheat sheet used in multiple js files
+
+- EventTarget: addEventListener() method - Web APIs | MDN. (n.d.). https://developer.mozilla.org/en-US/docs/Web/API/EventTarget/addEventListener
+
+"addEventListener()" method used in multiple js files
+
+- Font awesome. (n.d.). Font Awesome. https://fontawesome.com/
+
+library used for the icons in the bottom navigation
 
 - GeeksforGeeks. (2025a, July 28). JavaScript comparison operators. GeeksforGeeks. https://www.geeksforgeeks.org/javascript/javascript-comparison-operators/
 
@@ -81,6 +117,10 @@ logical operators used in register.js,
 
 used for the time tracking of users (beforeunload event) in track.js
 
+- HTML cheatsheet for syntax and common tasks - HTML | MDN. (n.d.). https://developer.mozilla.org/en-US/docs/Web/HTML/Guides/Cheatsheet
+
+HTML cheat sheet common syntax code used for multiple HTML files
+
 - HTTP status Code Constants in JavaScript: How to access them (Beyond XMLHttpRequest). (2025, November 14). Xjavascript. https://www.xjavascript.com/blog/accessing-http-status-code-constants/
 
 used for the error status code
@@ -89,17 +129,37 @@ used for the error status code
 
 Json.stringify used in register.js, login.js
 
+- Object.entries() - JavaScript | MDN. (n.d.). https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/entries
+
+"object.enteries()" used in admin.js
+
 - scroll-behavior - CSS | MDN. (n.d.). https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/scroll-behavior
 
 'scroll-behavior' proprety used in movie.css
 
+- Semah, B. (2025, April 2). How to use LocalStorage in JavaScript. freeCodeCamp.org. https://www.freecodecamp.org/news/use-local-storage-in-modern-applications/
+
+for 'localStorage' used in multiple js files
+
 - Shah, S. (2025, July 21). LocalStorage vs SessionStorage: How to Choose Wisely. DhiWise. https://www.dhiwise.com/post/localstorage-vs-sessionstorage-how-to-choose-wisely
 
-for 'localStorage' used in register.js,
+for 'localStorage' used in multiple js files
+
+- Sharma, R. (2023, November 23). 28 Javascript Array Methods: a cheat sheet for developer. DEV Community. https://dev.to/devsmitra/28-javascript-array-hacks-a-cheat-sheet-for-developer-5769µ
+
+cheat sheet for the array methods used in multiple js files
 
 - The ToFixed() function in JavaScript. (n.d.). Mastering JS. https://masteringjs.io/tutorials/fundamentals/tofixed
 
 'toFixed' used in main.js to convert number to string and round the number to a decimal
+
+- Using the Fetch API - Web APIs | MDN. (n.d.). https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API/Using_Fetch
+
+used when creating the "fetch" API in multiple js files
+
+- vis.js - Network documentation. (n.d.). https://visjs.github.io/vis-network/docs/network/
+
+used for the network data visualisation in admin.html, admin.js
 
 - W3Schools.com. (n.d.). https://www.w3schools.com/tags/tag_label.asp
 
@@ -121,6 +181,9 @@ redirection for the 'back'button in register and login html
 
 'window.location.href' used in register.js, login.js, register.html, login.html,
 
+- W3Schools.com. (n.d.-h). https://www.w3schools.com/jsref/jsref_object_keys.asp
+  "object.keys" used in admin.js
+
 - ::-Webkit-scrollbar - CSS | MDN. (n.d.). https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Selectors/::-webkit-scrollbar
 
 'innerHtml' property used in movie.js,
@@ -132,6 +195,14 @@ to create the slider bar in profile-setup.html
 - ::-Webkit-scrollbar - CSS | MDN. (n.d.). https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Selectors/::-webkit-scrollbar
 
 '-webkit-scrollbar', '-webkit-scrollbar-thumb' used in movie.css
+
+- Webta.St.Ic. (2016, October 13). Animate ecg pulse line builded with border and border-radius. Stack Overflow. https://stackoverflow.com/questions/40014999/animate-ecg-pulse-line-builded-with-border-and-border-radius
+
+used as inspiration for the hearRateMonitor animation in "watch-movie.html" and "watch-movie.js"
+
+- Window - Web APIs | MDN. (n.d.). https://developer.mozilla.org/en-US/docs/Web/API/Window
+
+general information about "window." used for understanding
 
 - Window: beforeunload event - Web APIs | MDN. (n.d.). https://developer.mozilla.org/en-US/docs/Web/API/Window/beforeunload_event
 
