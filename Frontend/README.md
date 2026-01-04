@@ -155,6 +155,10 @@ Json.stringify used in register.js, login.js
 
 "object.enteries()" used in admin.js
 
+- Okolo, S. (n.d.). Implementing live search functionality in JavaScript. https://blog.openreplay.com/implementing-live-search-functionality-in-javascript/
+
+used for the "live search" functionality in friends.html/.js and movie.html/.js
+
 - scroll-behavior - CSS | MDN. (n.d.). https://developer.mozilla.org/en-US/docs/Web/CSS/Reference/Properties/scroll-behavior
 
 'scroll-behavior' proprety used in movie.css
