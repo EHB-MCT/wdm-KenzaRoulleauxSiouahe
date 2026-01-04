@@ -11,6 +11,10 @@ used for the .env file for the config.js
 
 used for img store in mongoDB
 
+- https://www.crio.do/blog/how-to-create-guid-and-uuid-in-javascript-2025-criodo/
+
+helped for the UID of users
+
 - Cross-Origin Resource Sharing (CORS) - HTTP | MDN. (n.d.). https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/CORS
 
 used to link backend to frontend
@@ -43,9 +47,17 @@ comparison operator used in movie.js,
 
 used to help with he search query in MongoDB
 
+- Crypto: randomUUID() method - Web APIs | MDN. (n.d.). https://developer.mozilla.org/en-US/docs/Web/API/Crypto/randomUUID
+
+used for the random UUID for each users
+
+- HowTo generate a GUID/UUID in JavaScript: Best Methods & Examples. (n.d.). JavaScript Development Space. https://jsdev.space/howto/generate-uuid-js/
+
+used to understend the UUID and implement it in my code 
+
 - HTTP authentication - HTTP | MDN. (n.d.). https://developer.mozilla.org/en-US/docs/Web/HTTP/Guides/Authentication
 
-help woth everything thats identifications 
+help with everything thats identifications 
 
 - HTTP status Code Constants in JavaScript: How to access them (Beyond XMLHttpRequest). (2025, November 14). Xjavascript. https://www.xjavascript.com/blog/accessing-http-status-code-constants/
 
