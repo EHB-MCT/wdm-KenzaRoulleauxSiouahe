@@ -60,11 +60,6 @@ app.use("/posters", express.static(path.join(__dirname, "public/posters")));
 app.use("/avatars", express.static(path.join(__dirname, "public/avatars")));
 app.use("/public", express.static(path.join(__dirname, "public")));
 
-//Test route
-app.get("/", (req, res) => {
-	res.send("Backend is working");
-});
-
 //Register route
 app.post("/register", async (req, res) => {
 	const { email, password } = req.body;
@@ -311,6 +306,7 @@ app.post("/heart-rate", async (req, res) => {
 		res.status(500).json({ message: "Server error" });
 	}
 });
+//Get the heart rate after watching the movie
 app.get("/heart-rate/movie", async (req, res) => {
 	const { uid, movieId } = req.query;
 	if (!uid || !movieId) return res.status(400).json({ message: "Missing uid or movieId" });
@@ -333,7 +329,6 @@ app.post("/watchlist", async (req, res) => {
 		const user = await usersCollection.findOne({ uid });
 		if (!user) return res.status(404).json({ message: "User not found" });
 
-		// Prevent duplicates
 		const alreadyAdded = user.watchlist?.some((m) => m.movieId === movieId);
 		if (alreadyAdded) return res.status(400).json({ message: "Already in watchlist" });
 
@@ -380,6 +375,7 @@ app.delete("/watchlist", async (req, res) => {
 	}
 });
 
+//Post the watched movies
 app.post("/watched", async (req, res) => {
 	try {
 		const { uid, movieId, scaryScore, watchedAt } = req.body;
@@ -388,11 +384,9 @@ app.post("/watched", async (req, res) => {
 			return res.status(400).json({ message: "Missing data" });
 		}
 
-		// Find the movie in movies collection
 		const movieData = await moviesCollection.findOne({ _id: new ObjectId(movieId) });
 		if (!movieData) return res.status(404).json({ message: "Movie not found" });
 
-		// Insert into watched collection
 		await client
 			.db(dbName)
 			.collection("watched")
@@ -412,6 +406,7 @@ app.post("/watched", async (req, res) => {
 	}
 });
 
+//Get the watched movies
 app.get("/watched", async (req, res) => {
 	try {
 		const { uid } = req.query;
