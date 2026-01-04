@@ -2,7 +2,8 @@ const searchInput = document.getElementById("friendSearch");
 const resultsDiv = document.getElementById("searchResults");
 const friendsList = document.getElementById("friendsList");
 
-if (!window.uid) {
+const uid = localStorage.getItem("uid");
+if (!uid) {
 	alert("Not logged in");
 	location.href = "login.html";
 }
@@ -14,7 +15,7 @@ searchInput.addEventListener("input", async () => {
 		return;
 	}
 
-	const res = await fetch(`http://localhost:5000/users/search?q=${q}&uid=${window.uid}`);
+	const res = await fetch(`http://localhost:5000/users/search?q=${q}&uid=${uid}`);
 	const users = await res.json();
 
 	resultsDiv.innerHTML = "";
@@ -22,12 +23,14 @@ searchInput.addEventListener("input", async () => {
 		const div = document.createElement("div");
 		div.className = "search-user";
 		div.innerHTML = `
-      <img src="${u.avatar || "default.png"}" />
-      <span>${u.displayName}</span>
-      <button data-uid="${u.uid}">Add</button>
-    `;
+			<img src="${u.avatar ? `http://localhost:5000${u.avatar}` : "default.png"}" />
+			<span>${u.displayName}</span>
+			<button data-uid="${u.uid}">Add</button>
+		`;
 
-		div.querySelector("button").onclick = () => addFriend(u.uid);
+		const btn = div.querySelector("button");
+		if (btn) btn.onclick = () => addFriend(u.uid);
+
 		resultsDiv.appendChild(div);
 	});
 });
@@ -44,7 +47,7 @@ async function addFriend(friendUid) {
 	loadFriends();
 }
 async function loadFriends() {
-	const res = await fetch(`http://localhost:5000/friends?uid=${window.uid}`);
+	const res = await fetch(`http://localhost:5000/friends?uid=${uid}`);
 	const friends = await res.json();
 
 	friendsList.innerHTML = "";
