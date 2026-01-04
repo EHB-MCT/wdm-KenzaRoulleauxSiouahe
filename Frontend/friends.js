@@ -116,7 +116,7 @@ async function loadFriends() {
 						.map(
 							(m) => `
         <div class="movie-poster" data-id="${m.movieId}">
-          <img src="http://localhost:5000${m.Poster}" alt="${m.title}" />
+          <img src="http://localhost:5000${m.poster || m.Poster}" alt="${m.title}" />
         </div>
       `
 						)
