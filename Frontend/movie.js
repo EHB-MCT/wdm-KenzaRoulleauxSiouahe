@@ -73,6 +73,7 @@ searchInput.addEventListener("input", async () => {
 	if (query === "") {
 		searchHeader.style.display = "block";
 		moviesContainer.style.display = "flex";
+		friendsMoviesContainer.style.display = "flex";
 		recommendationTitle.style.display = "block";
 
 		resultsDiv.style.display = "none";
@@ -80,6 +81,7 @@ searchInput.addEventListener("input", async () => {
 	} else {
 		searchHeader.style.display = "none";
 		moviesContainer.style.display = "none";
+		friendsMoviesContainer.style.display = "none";
 		recommendationTitle.style.display = "none";
 
 		resultsDiv.style.display = "block";
