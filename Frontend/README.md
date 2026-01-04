@@ -49,11 +49,25 @@ This project will collect both explicit and implicit data from the user:
 - make an account and browse movies
 
 For admin:
+
 - login with email : admin@gmail.com
 - password: "adminpassword"
 - admin paswword "SECRETCODE"
 - browse the user data
 
+# Pitfalls, Shortcomings, and Reflections on my Spooky Scary App
+
+The data used in this project contains several important limitations that affect its accuracy, reliability, and realism. A major shortcoming is that much of the data is synthetic or simulated rather than naturally occurring. For example, heart rate measurements, user behaviour events, and interactions are generated in a controlled or artificial way. Because of this, the data does not fully capture the complexity, variability, and unpredictability of real human behaviour. This makes it difficult to draw strong or fully realistic conclusions from the visualizations and analyses.
+
+Another issue is limited context and scale. The number of users is relatively small, and their actions are constrained by the structure of the application. Real-world platforms typically involve thousands or millions of users with diverse habits, devices, emotional states, and environmental factors. In this project, user behaviour such as page visits, clicks, and time spent on pages may not accurately reflect genuine interest or emotional response, but rather test usage or repeated interactions during development.
+
+The heart rate data is inherently flawed due to missing external factors. Real heart rate changes can be influenced by stress, movement, caffeine, fitness level, or background activity, none of which are accounted for in this dataset. As a result, correlating heart rate directly to how “scary” a movie is can be misleading and oversimplified.
+
+Working with fake or simulated data also proved challenging because it lacks authenticity. Even though the data provides a general idea of how a real system might behave, it does not carry the same weight or uncertainty as real-world data. This experience highlighted how difficult it can be to validate assumptions or identify meaningful trends when the data does not originate from genuine user behaviour.
+
+Despite these shortcomings, this project was highly informative. One key lesson learned is that even a seemingly simple application, such as a horror movie rating app, can collect a surprisingly large amount of personal and behavioural information. Data such as viewing habits, friendships, interaction patterns, time spent on pages, and physiological signals can quickly build a detailed profile of a user. This realization emphasizes the importance of ethical data collection, transparency, and privacy-aware system design.
+
+Overall, the project demonstrated both the power and the risk of data collection. While data visualization can provide valuable insights, it is only as reliable as the data itself. This experience reinforced the importance of understanding data limitations, questioning assumptions, and treating user data responsibly.
 
 # Sources frontend:
 
