@@ -3,6 +3,7 @@ const resultsDiv = document.getElementById("results");
 const moviesContainer = document.getElementById("moviesContainer");
 const searchHeader = document.getElementById("searchHeader");
 const recommendationTitle = document.getElementById("recommendationTitle");
+const friendsRecommendationTitle = document.getElementById("friendsRecommendationTitle");
 const friendsMoviesContainer = document.getElementById("friendsMovies");
 
 let watchlistIds = new Set();
@@ -63,6 +64,7 @@ globalThis.addEventListener("DOMContentLoaded", async () => {
 		movies = await response.json();
 	}
 	recommendationTitle.style.display = "block";
+	friendsRecommendationTitle.style.display = "block";
 
 	renderHorizontalMovies(movies);
 	await loadFriendsMovies();
@@ -75,6 +77,7 @@ searchInput.addEventListener("input", async () => {
 		moviesContainer.style.display = "flex";
 		friendsMoviesContainer.style.display = "flex";
 		recommendationTitle.style.display = "block";
+		friendsRecommendationTitle.style.display = "block";
 
 		resultsDiv.style.display = "none";
 		resultsDiv.innerHTML = "";
@@ -83,6 +86,7 @@ searchInput.addEventListener("input", async () => {
 		moviesContainer.style.display = "none";
 		friendsMoviesContainer.style.display = "none";
 		recommendationTitle.style.display = "none";
+		friendsRecommendationTitle.style.display = "none";
 
 		resultsDiv.style.display = "block";
 	}

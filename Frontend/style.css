@@ -5,61 +5,78 @@ body {
 	align-items: center;
 	height: 100vh;
 	margin: 0;
+	font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande", "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
 }
 
 .iphone {
+	background: #ffffff;
 	width: 390px;
 	height: 770px;
-	background-color: white;
-	border-radius: 40px;
-	box-shadow: 0 0 20px rgba(0, 0, 0, 0.3);
-	overflow: hidden;
-	padding: 20px;
 	display: flex;
 	flex-direction: column;
-	position: relative;
+	padding: 20px;
+	border-radius: 40px;
 	box-sizing: border-box;
-	padding-bottom: 85px;
+	position: relative;
+	overflow: hidden;
+}
+
+.iphone h1,
+.iphone h2,
+.iphone h3,
+.iphone h4,
+.iphone p {
+	margin: 0;
+	font-family: inherit;
 }
 
 .iphone h1 {
-	font-size: 24px;
 	text-align: center;
-	margin-top: 20px;
-	font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande", "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
-}
-
-.iphone h3 {
-	font-family: "Lucida Sans", "Lucida Sans Regular", "Lucida Grande", "Lucida Sans Unicode", Geneva, Verdana, sans-serif;
 }
 .iphone p {
 	margin-bottom: -3px;
 	font-size: 20px;
 }
 
-.iphone input[type="range"] {
+.iphone input[type="text"],
+.iphone input[type="range"],
+.iphone input[type="password"],
+.iphone input[type="email"] {
 	width: 100%;
+	padding: 6px 10px;
+	font-size: 14px;
+	border-radius: 6px;
+	border: 1px solid #ccc;
+	box-sizing: border-box;
+	outline: none;
 	margin-top: 10px;
 }
 
-.start-btn,
-.casual-btn {
-	margin-top: 40px;
-	width: 100%;
-	padding: 15px;
+.iphone input:focus {
+	border-color: #ff4b4b;
+	box-shadow: 0 0 6px rgba(255, 75, 75, 0.5);
+}
+
+button {
+	border-radius: 6px;
 	border: none;
-	background: rgb(212, 102, 102);
-	color: white;
-	font-size: 16px;
-	border-radius: 12px;
 	cursor: pointer;
+	transition: 0.2s ease;
+	font-family: inherit;
 }
 
-.casual-btn {
-	width: 40%;
-	padding: 10px;
+.start-btn,
+.casual-btn,
+.small-btn,
+.tab-btn,
+.add-watchlist-btn {
+	font-weight: 600;
+	color: white;
 }
-
+.start-btn,
+.casual-btn{
+margin-top: 10px;
+}
 .bottom-nav {
 	position: absolute;
 	bottom: 0;
@@ -68,11 +85,9 @@ body {
 	height: 70px;
 	background-color: #fff;
 	border-top: 1px solid #eaeaea;
-
 	display: flex;
 	justify-content: space-around;
 	align-items: center;
-
 	border-bottom-left-radius: 40px;
 	border-bottom-right-radius: 40px;
 }
@@ -81,7 +96,6 @@ body {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
-
 	color: #999;
 	text-decoration: none;
 	font-size: 11px;
@@ -90,6 +104,9 @@ body {
 .nav-item i {
 	font-size: 20px;
 	margin-bottom: 3px;
+}
+.nav-item.active {
+	color: #a80000;
 }
 
 .nav-search {
@@ -106,10 +123,62 @@ body {
 	font-size: 22px;
 	color: #999;
 }
-
 .nav-search span {
 	display: none;
 }
-.nav-item.active {
-	color: #a80000;
+
+.card,
+.movie-card,
+.friend-card,
+.movie-card-default,
+.friend-movie-card,
+.watchlist-poster {
+	border-radius: 8px;
+	box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+	transition: transform 0.2s ease;
+}
+
+.card:hover,
+.movie-card:hover,
+.friend-card:hover,
+.movie-card-default:hover,
+.friend-movie-card:hover,
+.watchlist-poster:hover {
+	transform: scale(1.05);
+}
+
+::-webkit-scrollbar {
+	border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+	border-radius: 4px;
+}
+
+.movie-info {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.tab-btn {
+	flex: 1;
+	padding: 10px;
+	background: none;
+	border: none;
+	font-size: 14px;
+	color: #777;
+	cursor: pointer;
+	border-bottom: 2px solid transparent;
+}
+
+.tab-btn.active {
+	color: #8b0000;
+	border-bottom: 2px solid #8b0000;
+	font-weight: 600;
+}
+
+button:hover,
+.tab-btn:hover {
+	opacity: 0.9;
 }

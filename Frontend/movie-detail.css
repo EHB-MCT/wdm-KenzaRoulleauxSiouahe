@@ -1,9 +1,4 @@
-.iphone {
-	display: flex;
-	flex-direction: column;
-	padding: 12px;
-	gap: 12px;
-}
+
 .detail-header {
 	display: flex;
 	align-items: center;

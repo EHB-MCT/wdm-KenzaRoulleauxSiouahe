@@ -1,9 +1,4 @@
-.iphone {
-	display: flex;
-	flex-direction: column;
-}
 
-/* --- Search input --- */
 .iphone input#searchInput {
 	width: 100%;
 	padding: 6px 10px;
@@ -14,7 +9,6 @@
 	box-sizing: border-box;
 }
 
-/* --- Default movies: horizontal scroll --- */
 #moviesContainer {
 	display: flex;
 	overflow-x: auto;
@@ -32,7 +26,6 @@
 	border-radius: 4px;
 }
 
-/* Default movie card */
 .movie-card-default {
 	flex: 0 0 auto;
 	width: 95px;
@@ -62,7 +55,6 @@
 	color: #111;
 }
 
-/* Result movie card */
 #results {
 	flex: 1;
 	overflow-y: auto;
@@ -152,7 +144,6 @@
 	font-weight: 700;
 	letter-spacing: 0.5px;
 }
-/*  Friends movies section */
 #friendsMovies {
 	display: flex;
 	overflow-x: auto;
@@ -171,7 +162,6 @@
 	border-radius: 4px;
 }
 
-/* Friends movie cards */
 .friend-movie-card {
 	flex: 0 0 auto;
 	width: 95px; 
